@@ -23,15 +23,15 @@ void main() {
     expect("Skill Branch", holder.users["kaparray@gmail.com"].name);
   });
 
-//  test('getUserByLogin', () {
-//    User user = User(name: "Dan Tot", phone: "+15750761449", email: "dan.tot@yandex.ru");
-//    holder.users[user.login] = user;
-//
-//    expect(user.login, holder.getUserByLogin(user.login).login);
-//    expect(user.phone, holder.getUserByLogin(user.login).phone);
-//    expect(user.name, holder.getUserByLogin(user.login).name);
-//    expect(user.email, holder.getUserByLogin(user.login).email);
-//  });
+  test('getUserByLogin', () {
+    User user = User(name: "Dan Tot", phone: "+15750761449", email: "dan.tot@yandex.ru");
+    holder.users[user.login] = user;
+
+    expect(user.login, holder.getUserByLogin(user.login).login);
+    expect(user.phone, holder.getUserByLogin(user.login).phone);
+    expect(user.name, holder.getUserByLogin(user.login).name);
+    expect(user.email, holder.getUserByLogin(user.login).email);
+  });
 //
 //  group('Test: getUserByLogin()', () {
 //    test('registerUserByPhone', () {
