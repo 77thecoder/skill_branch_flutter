@@ -32,22 +32,22 @@ void main() {
     expect(user.name, holder.getUserByLogin(user.login).name);
     expect(user.email, holder.getUserByLogin(user.login).email);
   });
-//
-//  group('Test: getUserByLogin()', () {
-//    test('registerUserByPhone', () {
-//      User user = holder.registerUserByPhone("John Ray", "+9-733 524-0185");
-//
-//      expect(user.login, holder.getUserByLogin(user.login).login);
-//      expect(user.phone, holder.getUserByLogin(user.login).phone);
-//      expect(user.name, holder.getUserByLogin(user.login).name);
-//      expect(user.email, holder.getUserByLogin(user.login).email);
-//    });
-//
-//    test('registerUserByPhone', () {
-//      expect(() => holder.registerUserByPhone("John Ray", "+9-733 524-085"), throwsA(isA<Exception>()));
-//    });
-//  });
-//
+
+  group('Test: getUserByLogin()', () {
+    test('registerUserByPhone', () {
+      User user = holder.registerUserByPhone("John Ray", "+9-733 524-0185");
+
+      expect(user.login, holder.getUserByLogin(user.login).login);
+      expect(user.phone, holder.getUserByLogin(user.login).phone);
+      expect(user.name, holder.getUserByLogin(user.login).name);
+      expect(user.email, holder.getUserByLogin(user.login).email);
+    });
+
+    test('registerUserByPhone', () {
+      expect(() => holder.registerUserByPhone("John Ray", "+9-733 524-085"), throwsA(isA<Exception>()));
+    });
+  });
+
   group('Test: getUserByLogin()', () {
     test('registerUserByEmail', () {
       User user = holder.registerUserByEmail("John Ray", "ray1550@yahoo.net");
@@ -58,15 +58,15 @@ void main() {
       expect(user.email, holder.getUserByLogin(user.login).email);
     });
 
-//    test('Email is not valid registerUserByPhone', () {
-//      expect(() => holder.registerUserByEmail("John Ray", "dfdsag"), throwsA(isA<Exception>()));
-//    });
-//
-//    test('Exception(A user with this email already exists) registerUserByPhone', () {
-//      holder.registerUserByEmail("John Ray", "ray1550@yahoo.net");
-//
-//      expect(() => holder.registerUserByEmail("John Ray", "ray1550@yahoo.net"), throwsA(isA<Exception>()));
-//    });
+    test('Email is not valid registerUserByPhone', () {
+      expect(() => holder.registerUserByEmail("John Ray", "dfdsag"), throwsA(isA<Exception>()));
+    });
+
+    test('Exception(A user with this email already exists) registerUserByPhone', () {
+      holder.registerUserByEmail("John Ray", "ray1550@yahoo.net");
+
+      expect(() => holder.registerUserByEmail("John Ray", "ray1550@yahoo.net"), throwsA(isA<Exception>()));
+    });
   });
 //
 //  test('setFriends', () {

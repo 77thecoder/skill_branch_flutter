@@ -17,7 +17,6 @@ class User {
       _lastName = lastName,
       this.phone = phone,
       this.email = email {
-    print("User created!");
     _type = email != null ? LoginType.email : LoginType.phone;
   }
 
