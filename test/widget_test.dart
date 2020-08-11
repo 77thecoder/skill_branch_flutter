@@ -48,16 +48,16 @@ void main() {
 //    });
 //  });
 //
-//  group('Test: getUserByLogin()', () {
-//    test('registerUserByEmail', () {
-//      User user = holder.registerUserByEmail("John Ray", "ray1550@yahoo.net");
-//
-//      expect(user.login, holder.getUserByLogin(user.login).login);
-//      expect(user.phone, holder.getUserByLogin(user.login).phone);
-//      expect(user.name, holder.getUserByLogin(user.login).name);
-//      expect(user.email, holder.getUserByLogin(user.login).email);
-//    });
-//
+  group('Test: getUserByLogin()', () {
+    test('registerUserByEmail', () {
+      User user = holder.registerUserByEmail("John Ray", "ray1550@yahoo.net");
+
+      expect(user.login, holder.getUserByLogin(user.login).login);
+      expect(user.phone, holder.getUserByLogin(user.login).phone);
+      expect(user.name, holder.getUserByLogin(user.login).name);
+      expect(user.email, holder.getUserByLogin(user.login).email);
+    });
+
 //    test('Email is not valid registerUserByPhone', () {
 //      expect(() => holder.registerUserByEmail("John Ray", "dfdsag"), throwsA(isA<Exception>()));
 //    });
@@ -67,7 +67,7 @@ void main() {
 //
 //      expect(() => holder.registerUserByEmail("John Ray", "ray1550@yahoo.net"), throwsA(isA<Exception>()));
 //    });
-//  });
+  });
 //
 //  test('setFriends', () {
 //    User user = User(name: "Dan Tot", phone: "+15750761449", email: "dan.tot@yandex.ru");
