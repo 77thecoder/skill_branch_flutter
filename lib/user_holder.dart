@@ -42,4 +42,8 @@ class UserHolder {
 
     return user;
   }
+
+  void setFriends(String login, List<User> friends) {
+    users[login].friends.addAll(friends);
+  }
 }

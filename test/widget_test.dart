@@ -68,29 +68,29 @@ void main() {
       expect(() => holder.registerUserByEmail("John Ray", "ray1550@yahoo.net"), throwsA(isA<Exception>()));
     });
   });
-//
-//  test('setFriends', () {
-//    User user = User(name: "Dan Tot", phone: "+15750761449", email: "dan.tot@yandex.ru");
-//    holder.users[user.login] = user;
-//
-//    List<User> friends = [
-//      User(name: "Ray Dalio", email: "ray.dalio@gmail.com"),
-//      User(name: "Warren Buffett", phone: "+1 833-914-92-65"),
-//    ];
-//
-//    holder.setFriends(user.login, friends);
-//
-//    expect(2, holder.users[user.login].friends.length);
-//
-//    expect(friends[0].email, holder.users[user.login].friends[0].email);
-//    expect(friends[0].login, holder.users[user.login].friends[0].login);
-//    expect(friends[0].phone, holder.users[user.login].friends[0].phone);
-//
-//    expect(friends[1].email, holder.users[user.login].friends[1].email);
-//    expect(friends[1].login, holder.users[user.login].friends[1].login);
-//    expect(friends[1].phone, holder.users[user.login].friends[1].phone);
-//  });
-//
+
+  test('setFriends', () {
+    User user = User(name: "Dan Tot", phone: "+15750761449", email: "dan.tot@yandex.ru");
+    holder.users[user.login] = user;
+
+    List<User> friends = [
+      User(name: "Ray Dalio", email: "ray.dalio@gmail.com"),
+      User(name: "Warren Buffett", phone: "+1 833-914-92-65"),
+    ];
+
+    holder.setFriends(user.login, friends);
+
+    expect(2, holder.users[user.login].friends.length);
+
+    expect(friends[0].email, holder.users[user.login].friends[0].email);
+    expect(friends[0].login, holder.users[user.login].friends[0].login);
+    expect(friends[0].phone, holder.users[user.login].friends[0].phone);
+
+    expect(friends[1].email, holder.users[user.login].friends[1].email);
+    expect(friends[1].login, holder.users[user.login].friends[1].login);
+    expect(friends[1].phone, holder.users[user.login].friends[1].phone);
+  });
+
 //  group('findUserInFriends', () {
 //    test('findUserInFriends', () {
 //      User user = User(name: "Dan Tot", phone: "+15750761449", email: "dan.tot@yandex.ru");
