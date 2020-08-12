@@ -106,5 +106,5 @@ class User with UserUtils{
 }
 
 mixin UserUtils {
-  String get capitalize(String s) => s[0].toUpperCase() + s.substring(1).toLowerCase();
+  String capitalize(String s) => s[0].toUpperCase() + s.substring(1).toLowerCase();
 }
