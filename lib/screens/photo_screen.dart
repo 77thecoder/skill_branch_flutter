@@ -1,13 +1,15 @@
-import 'package:FlutterGalleryApp/widgets/photo.dart';
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import '../widgets/widgets.dart';
 import '../res/res.dart';
 
 class FullScreenImage extends StatelessWidget {
   final String imageLink;
+  final String altDescription;
+  final String userName;
+  final String name;
 
-  FullScreenImage({this.imageLink});
+  FullScreenImage({this.imageLink, this.altDescription, this.name, this.userName, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class FullScreenImage extends StatelessWidget {
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
-              icon: Icon(Icons.arrow_back),
+              icon: Icon(CupertinoIcons.back),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -32,7 +34,7 @@ class FullScreenImage extends StatelessWidget {
               Photo(photoLink: imageLink),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                child: Description(description: 'Beautiful girl in a yellow dress with a flower on her head in the summer in the forest. Beautiful girl in a yellow dress with a flower on her head in the summer in the forest. Beautiful girl in a yellow dress with a flower on her head in the summer in the forest'),
+                child: altDescription != null ? Description(description: altDescription) : Description(description: 'Beautiful girl in a yellow dress with a flower on her head in the summer in the forest. Beautiful girl in a yellow dress with a flower on her head in the summer in the forest. Beautiful girl in a yellow dress with a flower on her head in the summer in the forest'),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -151,6 +153,3 @@ class Description extends StatelessWidget {
     );
   }
 }
-
-
-
