@@ -1,4 +1,5 @@
 import 'package:FlutterGalleryApp/res/res.dart';
+import 'package:FlutterGalleryApp/screens/photo_screen.dart';
 import 'package:FlutterGalleryApp/widgets/like_button.dart';
 import 'package:FlutterGalleryApp/widgets/photo.dart';
 import 'package:FlutterGalleryApp/widgets/user_avatar.dart';
@@ -42,7 +43,7 @@ Widget _buildItem(BuildContext context, int index) {
     children: <Widget>[
       GestureDetector(
         onTap: () {
-          Navigator.pushNamed(context, '/photo');
+          Navigator.push(context, MaterialPageRoute(builder: (context) => FullScreenImage(imageLink: kFlutterDash)));
         },
         child: Photo(photoLink: kFlutterDash),
       ),
