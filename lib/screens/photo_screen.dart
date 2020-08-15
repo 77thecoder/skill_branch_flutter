@@ -1,6 +1,8 @@
 import 'package:FlutterGalleryApp/widgets/photo.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import '../widgets/widgets.dart';
+import '../res/res.dart';
 
 class FullScreenImage extends StatelessWidget {
   final String imageLink;
@@ -24,8 +26,95 @@ class FullScreenImage extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: Photo(photoLink: imageLink)
-      ),
-    );
+        child:
+          Column(
+            children: <Widget>[
+              Photo(photoLink: imageLink),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: Text(
+                  'Beautiful girl in a yellow dress with a flower on her head in the summer in the forest',
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppStyles.h3.copyWith(color: AppColors.manatee),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        UserAvatar('https://skill-branch.ru/img/speakers/Adechenko.jpg'),
+                        SizedBox(width: 6,),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text('Kirill Adeshchenko', style: AppStyles.h2Black,),
+                            Text('@kaparray', style: AppStyles.h5Black.copyWith(color: AppColors.manatee),),
+                          ],
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    LikeButton(likeCount: 10, isLiked: true),
+                    GestureDetector(
+                      onTap: () {
+                        print('*************** SAVE');
+                      },
+                      child:
+                        Container(
+                          width: 100,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            color: AppColors.dodgerBlue,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Center(
+                            child:
+                              Text(
+                                'Save',
+                                style: AppStyles.h2Black.copyWith(color: AppColors.white),
+                              ),
+                          ),
+                        )
+                    ),
+                    GestureDetector(
+                        onTap: () {
+                          print('*************** VISIT');
+                        },
+                        child:
+                        Container(
+                          width: 100,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            color: AppColors.dodgerBlue,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Center(
+                            child:
+                            Text(
+                              'Visit',
+                              style: AppStyles.h2Black.copyWith(color: AppColors.white),
+                            ),
+                          ),
+                        )
+                    )
+                  ],
+                ),
+              )
+            ]
+          ),
+        ),
+      );
   }
 }
