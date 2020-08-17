@@ -134,7 +134,7 @@ class Username extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('@kaparray', style: AppStyles.h5Black.copyWith(color: AppColors.manatee),);
+    return Text(userName, style: AppStyles.h5Black.copyWith(color: AppColors.manatee),);
   }
 }
 
