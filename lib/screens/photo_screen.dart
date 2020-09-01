@@ -50,7 +50,7 @@ class FullScreenImage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Name(name: 'Kirill Adeshchenko'),
-                            Username(userName: '@kaparry'),
+                            Username(userName: '@kaparray'),
                           ],
                         )
                       ],
