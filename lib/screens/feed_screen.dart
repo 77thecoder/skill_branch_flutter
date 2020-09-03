@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:FlutterGalleryApp/res/colors.dart';
 
 const String kFlutterDash = 'https://flutter.dev/assets/404/dash_nest-c64796b59b65042a2b40fae5764c13b7477a592db79eaf04c86298dcb75b78ea.png';
+const String userPhoto = 'https://skill-branch.ru/img/speakers/Adechenko.jpg';
 
 class Feed extends StatefulWidget {
   Feed({Key key}) : super(key: key);
@@ -47,11 +48,19 @@ class _buildItem extends StatelessWidget {
       children: <Widget>[
         GestureDetector(
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => FullScreenImage(imageLink: kFlutterDash, heroTag: this.heroTag)));
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => FullScreenImage(
+                  photo: kFlutterDash,
+                  heroTag: this.heroTag,
+                  userPhoto: userPhoto,
+                )
+              )
+            );
           },
           child: Hero(
             tag: heroTag,
-            child: Photo(photoLink: kFlutterDash),
+            child: Photo(photo: kFlutterDash),
           ),
         ),
         _buildPhotoMeta(index: index),
@@ -82,7 +91,7 @@ class _buildPhotoMeta extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              UserAvatar('https://skill-branch.ru/img/speakers/Adechenko.jpg'),
+              UserAvatar(userPhoto),
               SizedBox(width: 6,),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

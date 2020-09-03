@@ -4,13 +4,22 @@ import '../widgets/widgets.dart';
 import '../res/res.dart';
 
 class FullScreenImage extends StatelessWidget {
-  final String imageLink;
+  final String photo;
   final String altDescription;
   final String userName;
   final String name;
   final String heroTag;
+  final String userPhoto;
 
-  FullScreenImage({this.imageLink, this.altDescription, this.name, this.userName, Key key, this.heroTag}) : super(key: key);
+  FullScreenImage({
+    Key key,
+    this.photo,
+    this.altDescription,
+    this.name,
+    this.userName,
+    this.heroTag,
+    this.userPhoto
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +44,7 @@ class FullScreenImage extends StatelessWidget {
             children: <Widget>[
               Hero(
                 tag: heroTag,
-                child: Photo(photoLink: imageLink)
+                child: Photo(photo: photo)
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -48,7 +57,7 @@ class FullScreenImage extends StatelessWidget {
                   children: <Widget>[
                     Row(
                       children: <Widget>[
-                        UserAvatar('https://skill-branch.ru/img/speakers/Adechenko.jpg'),
+                        UserAvatar(userPhoto),
                         SizedBox(width: 6,),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
