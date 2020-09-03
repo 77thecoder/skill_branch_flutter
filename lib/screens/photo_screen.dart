@@ -8,18 +8,20 @@ class FullScreenImage extends StatelessWidget {
   final String altDescription;
   final String userName;
   final String name;
+  final String heroTag;
 
-  FullScreenImage({this.imageLink, this.altDescription, this.name, this.userName, Key key}) : super(key: key);
+  FullScreenImage({this.imageLink, this.altDescription, this.name, this.userName, Key key, this.heroTag}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Photo'),
+        backgroundColor: AppColors.white,
+        title: Text('Photo', style: TextStyle(color: AppColors.black),),
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
-              icon: Icon(CupertinoIcons.back),
+              icon: Icon(CupertinoIcons.back, color: AppColors.black,),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -31,7 +33,10 @@ class FullScreenImage extends StatelessWidget {
         child:
           Column(
             children: <Widget>[
-              Photo(photoLink: imageLink),
+              Hero(
+                tag: heroTag,
+                child: Photo(photoLink: imageLink)
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: altDescription != null ? Description(description: altDescription) : Description(description: 'Beautiful girl in a yellow dress with a flower on her head in the summer in the forest. Beautiful girl in a yellow dress with a flower on her head in the summer in the forest. Beautiful girl in a yellow dress with a flower on her head in the summer in the forest'),

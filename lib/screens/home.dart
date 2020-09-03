@@ -11,7 +11,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int currentTab = 1;
+  int currentTab = 0;
 
   List<Widget> pages = [
     Feed(),

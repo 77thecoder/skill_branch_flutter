@@ -17,15 +17,15 @@ class _FeedState extends State<Feed> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('FeedPhotoApp'),
-      ),
+      // appBar: AppBar(
+      //   title: Text('FeedPhotoApp'),
+      // ),
       body: ListView.builder(
         itemCount: 10,
         itemBuilder: (BuildContext context, int index) {
           return Column(
             children: <Widget>[
-              _buildItem(context, index),
+              _buildItem(index: index, heroTag: 'img-' + index.toString(),),
               Divider(thickness: 2, color: AppColors.mercury,),
             ],
           );
@@ -35,52 +35,68 @@ class _FeedState extends State<Feed> {
   }
 }
 
-Widget _buildItem(BuildContext context, int index) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-      GestureDetector(
-        onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => FullScreenImage(imageLink: kFlutterDash)));
-        },
-        child: Photo(photoLink: kFlutterDash),
-      ),
-      _buildPhotoMeta(index),
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        child: Text(
-          'This is Flutter dash :)',
-          maxLines: 3,
-          overflow: TextOverflow.ellipsis,
-          style: AppStyles.h3.copyWith(color: AppColors.manatee),
+class _buildItem extends StatelessWidget {
+  String heroTag;
+  int index;
+
+  _buildItem({this.heroTag, this.index});
+
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        GestureDetector(
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => FullScreenImage(imageLink: kFlutterDash, heroTag: this.heroTag)));
+          },
+          child: Hero(
+            tag: heroTag,
+            child: Photo(photoLink: kFlutterDash),
+          ),
         ),
-      ),
-    ],
-  );
+        _buildPhotoMeta(index: index),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          child: Text(
+            'This is Flutter dash :)',
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+            style: AppStyles.h3.copyWith(color: AppColors.manatee),
+          ),
+        ),
+      ],
+    );
+  }
 }
 
-Widget _buildPhotoMeta(int index) {
-  return Padding(
-    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            UserAvatar('https://skill-branch.ru/img/speakers/Adechenko.jpg'),
-            SizedBox(width: 6,),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text('Kirill Adeshchenko', style: AppStyles.h2Black,),
-                Text('@kaparray', style: AppStyles.h5Black.copyWith(color: AppColors.manatee),),
-              ],
-            )
-          ],
-        ),
-        LikeButton(likeCount: 10, isLiked: true)
-      ],
-    ),
-  );
+class _buildPhotoMeta extends StatelessWidget {
+  int index;
+
+  _buildPhotoMeta({this.index});
+
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              UserAvatar('https://skill-branch.ru/img/speakers/Adechenko.jpg'),
+              SizedBox(width: 6,),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('Kirill Adeshchenko', style: AppStyles.h2Black,),
+                  Text('@kaparray', style: AppStyles.h5Black.copyWith(color: AppColors.manatee),),
+                ],
+              )
+            ],
+          ),
+          LikeButton(likeCount: 10, isLiked: true)
+        ],
+      ),
+    );
+  }
 }
