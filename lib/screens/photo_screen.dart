@@ -5,6 +5,28 @@ import 'package:gallery_saver/gallery_saver.dart';
 import '../widgets/widgets.dart';
 import '../res/res.dart';
 
+class FullScreenImageArguments {
+  FullScreenImageArguments({
+    this.key,
+    this.photo,
+    this.altDescription,
+    this.userName,
+    this.name,
+    this.userPhoto,
+    this.heroTag,
+    this.settings
+  });
+
+  final Key key;
+  final String photo;
+  final String altDescription;
+  final String userName;
+  final String name;
+  final String userPhoto;
+  final String heroTag;
+  final RouteSettings settings;
+}
+
 class FullScreenImage extends StatefulWidget {
   final String photo;
   final String altDescription;

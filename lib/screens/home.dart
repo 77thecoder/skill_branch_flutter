@@ -1,8 +1,10 @@
 import 'package:FlutterGalleryApp/res/app_icons.dart';
 import 'package:FlutterGalleryApp/res/colors.dart';
+import 'package:FlutterGalleryApp/screens/photo_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'demo_screent.dart';
 import 'feed_screen.dart';
 
 class Home extends StatefulWidget {
@@ -12,47 +14,62 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int currentTab = 0;
+  final PageStorageBucket bucket = PageStorageBucket();
 
   List<Widget> pages = [
-    Feed(),
+    Feed(key: PageStorageKey('FeedPage')),
     Container(),
     Container(),
+  ];
+
+  final List<BottomNavyBarItem> _tabs = [
+    BottomNavyBarItem(
+      asset: AppIcons.home,
+      title: Text('Feed'),
+      activeColor: AppColors.dodgerBlue,
+      inactiveColor: AppColors.manatee,
+    ),
+    BottomNavyBarItem(
+      asset: AppIcons.home,
+      title: Text('Search'),
+      activeColor: AppColors.dodgerBlue,
+      inactiveColor: AppColors.manatee,
+    ),
+    BottomNavyBarItem(
+      asset: AppIcons.home,
+      title: Text('User'),
+      activeColor: AppColors.dodgerBlue,
+      inactiveColor: AppColors.manatee,
+    ),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavyBar(
+        showElevation: true,
         itemCornerRadius: 8,
         curve: Curves.ease,
         currentTab: currentTab,
-        onItemSelected: (int index) {
-          setState(() {
-            currentTab = index;
-          });
+        items: _tabs,
+        onItemSelected: (int index) async {
+          if (index == 1) {
+            var value = await Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+              return DemoScreen();
+            }));
+
+            print(value);
+          } else {
+            setState(() {
+              currentTab = index;
+            });
+          }
         },
-        items: [
-          BottomNavyBarItem(
-            asset: AppIcons.home,
-            title: Text('Feed'),
-            activeColor: AppColors.dodgerBlue,
-            inactiveColor: AppColors.manatee,
-          ),
-          BottomNavyBarItem(
-            asset: AppIcons.home,
-            title: Text('Search'),
-            activeColor: AppColors.dodgerBlue,
-            inactiveColor: AppColors.manatee,
-          ),
-          BottomNavyBarItem(
-            asset: AppIcons.home,
-            title: Text('User'),
-            activeColor: AppColors.dodgerBlue,
-            inactiveColor: AppColors.manatee,
-          ),
-        ],
       ),
-      body: pages[currentTab],
+      body: PageStorage(
+        child: pages[currentTab],
+        bucket: bucket,
+      ),
     );
   }
 }
