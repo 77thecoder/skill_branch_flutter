@@ -4,7 +4,6 @@ import 'package:FlutterGalleryApp/screens/photo_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'demo_screent.dart';
 import 'feed_screen.dart';
 
 class Home extends StatefulWidget {
@@ -55,7 +54,7 @@ class _HomeState extends State<Home> {
         onItemSelected: (int index) async {
           if (index == 1) {
             var value = await Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-              return DemoScreen();
+              return Container();
             }));
 
             print(value);
