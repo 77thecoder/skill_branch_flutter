@@ -146,7 +146,7 @@ class _FullScreenImageState extends State<FullScreenImage> with TickerProviderSt
                             child:
                               Text(
                                 'Save',
-                                style: Theme.of(context).textTheme.headline6.copyWith(color: AppColors.white),
+                                style: Theme.of(context).textTheme.headline5.copyWith(color: AppColors.white),
                               ),
                           ),
                         )
@@ -167,7 +167,7 @@ class _FullScreenImageState extends State<FullScreenImage> with TickerProviderSt
                             child:
                             Text(
                               'Visit',
-                              style: Theme.of(context).textTheme.headline6.copyWith(color: AppColors.white),
+                              style: Theme.of(context).textTheme.headline5.copyWith(color: AppColors.white),
                             ),
                           ),
                         )
