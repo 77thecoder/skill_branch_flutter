@@ -1,6 +1,7 @@
 import 'package:FlutterGalleryApp/widgets/claim_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 import '../widgets/widgets.dart';
 import '../res/res.dart';
 
@@ -44,6 +45,34 @@ class _FullScreenImageState extends State<FullScreenImage> with TickerProviderSt
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  Future<void> _showDialog() async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Download photos'),
+          content: Text('Are you sure you want to download a photo?'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Download'),
+              onPressed: () {
+                // GallerySaver.saveImage('path');
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -133,6 +162,7 @@ class _FullScreenImageState extends State<FullScreenImage> with TickerProviderSt
                     GestureDetector(
                       onTap: () {
                         print('*************** SAVE');
+                        _showDialog();
                       },
                       child:
                         Container(
