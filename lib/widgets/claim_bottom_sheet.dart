@@ -14,10 +14,13 @@ class ClaimBottomSheet extends StatelessWidget {
       itemCount: complaints.length,
       itemBuilder: (context, index) {
         return ListTile(
-            dense: true,
-            title: Center(
-              child: Text(complaints[index]),
-            )
+          dense: true,
+          title: Center(
+            child: Text(complaints[index]),
+          ),
+          onTap: () {
+            Navigator.pop(context);
+          }
         );
       }
     );
