@@ -1,3 +1,4 @@
+import 'package:FlutterGalleryApp/widgets/claim_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../widgets/widgets.dart';
@@ -27,7 +28,6 @@ class FullScreenImage extends StatefulWidget {
 
 class _FullScreenImageState extends State<FullScreenImage> with TickerProviderStateMixin {
   AnimationController _controller;
-
 
   @override
   void initState() {
@@ -62,6 +62,43 @@ class _FullScreenImageState extends State<FullScreenImage> with TickerProviderSt
             );
           },
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.more_vert, color: AppColors.black),
+            onPressed: () {
+              showModalBottomSheet(
+                shape:  RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40),
+                  )
+                ),
+                context: context,
+                builder: (BuildContext context) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.mercury,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30),
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Container(
+                          height: 300,
+                          padding: EdgeInsets.symmetric(vertical: 4, horizontal: 2),
+                          child: ClaimBottomSheet(),
+                        ),
+                      ]
+                    ),
+                  );
+                }
+              );
+            })
+        ],
       ),
       body: Center(
         child:
