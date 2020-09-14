@@ -109,7 +109,7 @@ class _FullScreenImageState extends State<FullScreenImage> with TickerProviderSt
                             child:
                               Text(
                                 'Save',
-                                style: AppStyles.h2Black.copyWith(color: AppColors.white),
+                                style: Theme.of(context).textTheme.headline6.copyWith(color: AppColors.white),
                               ),
                           ),
                         )
@@ -130,7 +130,7 @@ class _FullScreenImageState extends State<FullScreenImage> with TickerProviderSt
                             child:
                             Text(
                               'Visit',
-                              style: AppStyles.h2Black.copyWith(color: AppColors.white),
+                              style: Theme.of(context).textTheme.headline6.copyWith(color: AppColors.white),
                             ),
                           ),
                         )
@@ -152,7 +152,7 @@ class Name extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(name, style: AppStyles.h1Black,);
+    return Text(name, style: Theme.of(context).textTheme.headline6,);
   }
 }
 
@@ -163,7 +163,7 @@ class Username extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(userName, style: AppStyles.h5Black.copyWith(color: AppColors.manatee),);
+    return Text(userName, style: Theme.of(context).textTheme.subtitle1.copyWith(color: AppColors.manatee),);
   }
 }
 

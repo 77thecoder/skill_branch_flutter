@@ -70,7 +70,7 @@ class _buildItem extends StatelessWidget {
             'This is Flutter dash :)',
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
-            style: AppStyles.h3.copyWith(color: AppColors.manatee),
+            style: Theme.of(context).textTheme.headline6.copyWith(color: AppColors.manatee),
           ),
         ),
       ],
@@ -97,8 +97,8 @@ class _buildPhotoMeta extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('Kirill Adeshchenko', style: AppStyles.h2Black,),
-                  Text('@kaparray', style: AppStyles.h5Black.copyWith(color: AppColors.manatee),),
+                  Text('Kirill Adeshchenko', style: Theme.of(context).textTheme.headline6,),
+                  Text('@kaparray', style: Theme.of(context).textTheme.subtitle1.copyWith(color: AppColors.manatee),),
                 ],
               )
             ],
