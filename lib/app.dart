@@ -7,6 +7,7 @@ import 'package:FlutterGalleryApp/screens/photo_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:connectivity/connectivity.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      home: Home(Connectivity().onConnectivityChanged),
       onUnknownRoute: (RouteSettings settings) {
         return MaterialPageRoute(builder: (BuildContext context) {
           return Scaffold(

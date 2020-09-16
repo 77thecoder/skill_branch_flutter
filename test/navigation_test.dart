@@ -148,37 +148,37 @@ void main() {
     expect(find.text('Close'), findsOneWidget);
   });
 
-  // testWidgets('module4', (WidgetTester tester) async {
-  //   StreamController<ConnectivityResult> controller = StreamController<ConnectivityResult>();
-  //
-  //   await tester.pumpWidget(
-  //     MaterialApp(
-  //       theme: ThemeData(textTheme: buildAppTextTheme()),
-  //       home: Home(controller.stream),
-  //     ),
-  //   );
-  //   await tester.pump();
-  //
-  //   controller.add(ConnectivityResult.none);
-  //   await tester.pump(const Duration(milliseconds: 100));
-  //   expect(find.text('No internet connection'), findsOneWidget);
-  //
-  //   controller.add(ConnectivityResult.wifi);
-  //   await tester.pump(const Duration(milliseconds: 100));
-  //   expect(find.text('No internet connection'), findsNothing);
-  //
-  //   controller.add(ConnectivityResult.none);
-  //   await tester.pump(const Duration(milliseconds: 100));
-  //   expect(find.text('No internet connection'), findsOneWidget);
-  //
-  //   controller.add(ConnectivityResult.mobile);
-  //   await tester.pump(const Duration(milliseconds: 100));
-  //   expect(find.text('No internet connection'), findsNothing);
-  //
-  //   controller.add(ConnectivityResult.none);
-  //   await tester.pump(const Duration(milliseconds: 100));
-  //   expect(find.text('No internet connection'), findsOneWidget);
-  //
-  //   controller.close();
-  // });
+  testWidgets('module4', (WidgetTester tester) async {
+    StreamController<ConnectivityResult> controller = StreamController<ConnectivityResult>();
+
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: ThemeData(textTheme: buildAppTextTheme()),
+        home: Home(controller.stream),
+      ),
+    );
+    await tester.pump();
+
+    controller.add(ConnectivityResult.none);
+    await tester.pump(const Duration(milliseconds: 100));
+    expect(find.text('No internet connection'), findsOneWidget);
+
+    controller.add(ConnectivityResult.wifi);
+    await tester.pump(const Duration(milliseconds: 100));
+    expect(find.text('No internet connection'), findsNothing);
+
+    controller.add(ConnectivityResult.none);
+    await tester.pump(const Duration(milliseconds: 100));
+    expect(find.text('No internet connection'), findsOneWidget);
+
+    controller.add(ConnectivityResult.mobile);
+    await tester.pump(const Duration(milliseconds: 100));
+    expect(find.text('No internet connection'), findsNothing);
+
+    controller.add(ConnectivityResult.none);
+    await tester.pump(const Duration(milliseconds: 100));
+    expect(find.text('No internet connection'), findsOneWidget);
+
+    controller.close();
+  });
 }

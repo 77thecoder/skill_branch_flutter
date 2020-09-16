@@ -48,13 +48,17 @@ class _buildItem extends StatelessWidget {
       children: <Widget>[
         GestureDetector(
           onTap: () {
-            Navigator.push(
+            Navigator.pushNamed(
               context,
-              MaterialPageRoute(builder: (context) => FullScreenImage(
-                  photo: kFlutterDash,
-                  heroTag: this.heroTag,
-                  userPhoto: userPhoto,
-                )
+              '/fullScreenImage',
+              arguments: FullScreenImageArguments(
+                photo: kFlutterDash,
+                heroTag: this.heroTag,
+                userPhoto: userPhoto,
+                altDescription: 'This is Flutter dash. I love him :)',
+                name: 'Kirill Adeshchenko',
+                userName: '@kaparray',
+                settings: RouteSettings(arguments: kFlutterDash)
               )
             );
           },
@@ -67,7 +71,7 @@ class _buildItem extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: Text(
-            'This is Flutter dash :)',
+            'This is Flutter dash. I love him :)',
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.headline6.copyWith(color: AppColors.manatee),

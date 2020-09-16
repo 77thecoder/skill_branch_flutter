@@ -1,12 +1,20 @@
+import 'dart:async';
+
 import 'package:FlutterGalleryApp/res/app_icons.dart';
 import 'package:FlutterGalleryApp/res/colors.dart';
-import 'package:FlutterGalleryApp/screens/photo_screen.dart';
+import 'package:FlutterGalleryApp/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:connectivity/connectivity.dart';
 
 import 'feed_screen.dart';
 
 class Home extends StatefulWidget {
+  Home(this.onConnectivityChanged);
+
+  final Stream<ConnectivityResult> onConnectivityChanged;
+
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -14,6 +22,53 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int currentTab = 0;
   final PageStorageBucket bucket = PageStorageBucket();
+  StreamSubscription subscription;
+
+  @override
+  void initState() {
+    super.initState();
+    subscription = widget.onConnectivityChanged.listen((ConnectivityResult result) {
+      switch (result) {
+        case ConnectivityResult.wifi:
+          ConnectivityOverlay().removeOverlay(context);
+          break;
+        case ConnectivityResult.mobile:
+          ConnectivityOverlay().removeOverlay(context);
+          break;
+        case ConnectivityResult.none:
+          ConnectivityOverlay().showOverlay(context, Positioned(
+            top: MediaQuery.of(context).viewInsets.top + 50,
+            child: Material(
+              color: Colors.transparent,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                child: Container(
+                  alignment: Alignment.center,
+                  width: MediaQuery.of(context).size.width,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.mercury,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    padding: EdgeInsets.fromLTRB(16, 10, 16, 10),
+                    child: Text('No internet connection'),
+                  ),
+                ),
+              ),
+            ),
+          ));
+          break;
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+
+    subscription.cancel();
+    super.dispose();
+  }
 
   List<Widget> pages = [
     Feed(key: PageStorageKey('FeedPage')),
