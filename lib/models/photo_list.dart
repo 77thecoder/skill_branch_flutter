@@ -1,14 +1,14 @@
-import 'package:FlutterGalleryApp/models/photo.dart';
+import 'package:FlutterGalleryApp/models/photo.dart' as photoModel;
 
 class PhotoList {
-  List<Photo> photos;
+  List<photoModel.Photo> photos;
 
   PhotoList({this.photos});
 
   PhotoList.fromJson(List<dynamic> json) {
-    List<Photo> photos = List<Photo>();
+    photos = List<photoModel.Photo>();
     json.forEach((value) {
-      photos.add(Photo.fromJson(value as Map<String, dynamic>));
+      photos.add(photoModel.Photo.fromJson(value as Map<String, dynamic>));
     });
   }
 

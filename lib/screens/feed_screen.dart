@@ -6,6 +6,7 @@ import 'package:FlutterGalleryApp/screens/photo_screen.dart';
 import 'package:FlutterGalleryApp/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:FlutterGalleryApp/res/colors.dart';
+import 'package:FlutterGalleryApp/models/photo.dart' as photoModel;
 
 const String kFlutterDash = 'https://flutter.dev/assets/404/dash_nest-c64796b59b65042a2b40fae5764c13b7477a592db79eaf04c86298dcb75b78ea.png';
 const String userPhoto = 'https://skill-branch.ru/img/speakers/Adechenko.jpg';
@@ -19,7 +20,8 @@ class Feed extends StatefulWidget {
 
 class _FeedState extends State<Feed> {
   int page = 0;
-  List<Photo> data = List<Photo>();
+  var data = List<photoModel.Photo>();
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -31,7 +33,7 @@ class _FeedState extends State<Feed> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
+      body: isLoading ? ListView.builder(
         itemCount: 10,
         itemBuilder: (BuildContext context, int index) {
           return Column(
@@ -41,16 +43,18 @@ class _FeedState extends State<Feed> {
             ],
           );
         },
-      ),
+      ) : Center(child: CircularProgressIndicator()),
     );
   }
 
   void _getPhotos(int page) async {
     var response = await DataProvider.getPhotos(page, 10);
     print('response');
+
     setState(() {
       data.addAll(response.photos);
       page++;
+      isLoading = true;
     });
   }
 }
