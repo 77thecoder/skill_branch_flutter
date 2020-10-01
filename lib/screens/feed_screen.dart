@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:FlutterGalleryApp/dataprovider.dart';
 import 'package:FlutterGalleryApp/res/res.dart';
 import 'package:FlutterGalleryApp/screens/photo_screen.dart';
 import 'package:FlutterGalleryApp/widgets/widgets.dart';
@@ -15,12 +18,19 @@ class Feed extends StatefulWidget {
 }
 
 class _FeedState extends State<Feed> {
+  int page = 0;
+  List<Photo> data = List<Photo>();
+
+  @override
+  void initState() {
+    _getPhotos(page);
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('FeedPhotoApp'),
-      // ),
       body: ListView.builder(
         itemCount: 10,
         itemBuilder: (BuildContext context, int index) {
@@ -33,6 +43,15 @@ class _FeedState extends State<Feed> {
         },
       ),
     );
+  }
+
+  void _getPhotos(int page) async {
+    var response = await DataProvider.getPhotos(page, 10);
+    print('response');
+    setState(() {
+      data.addAll(response.photos);
+      page++;
+    });
   }
 }
 

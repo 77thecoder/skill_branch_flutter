@@ -16,7 +16,7 @@ packages:
     source: hosted
     version: "2.1.0-nullsafety"
   cached_network_image:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: cached_network_image
       url: "https://pub.dartlang.org"
@@ -51,7 +51,7 @@ packages:
     source: hosted
     version: "1.15.0-nullsafety.2"
   connectivity:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: connectivity
       url: "https://pub.dartlang.org"
@@ -143,14 +143,14 @@ packages:
     source: sdk
     version: "0.0.0"
   gallery_saver:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: gallery_saver
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
   http:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: http
       url: "https://pub.dartlang.org"

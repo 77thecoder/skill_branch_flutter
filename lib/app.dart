@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:FlutterGalleryApp/res/res.dart';
-import 'package:FlutterGalleryApp/screens/feed_screen.dart';
 import 'package:FlutterGalleryApp/screens/home.dart';
 import 'package:FlutterGalleryApp/screens/photo_screen.dart';
 import 'package:flutter/cupertino.dart';
