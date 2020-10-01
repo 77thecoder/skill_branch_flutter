@@ -33,23 +33,12 @@ class _FeedState extends State<Feed> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isLoading ? ListView.builder(
-        itemCount: 10,
-        itemBuilder: (BuildContext context, int index) {
-          return Column(
-            children: <Widget>[
-              _buildItem(index: index, heroTag: 'img-' + index.toString(),),
-              Divider(thickness: 2, color: AppColors.mercury,),
-            ],
-          );
-        },
-      ) : Center(child: CircularProgressIndicator()),
+      body: isLoading ? _buildPhotoList(context, data) : Center(child: CircularProgressIndicator()),
     );
   }
 
   void _getPhotos(int page) async {
     var response = await DataProvider.getPhotos(page, 10);
-    print('response');
 
     setState(() {
       data.addAll(response.photos);
@@ -57,7 +46,47 @@ class _FeedState extends State<Feed> {
       isLoading = true;
     });
   }
+
+  Widget _buildPhotoList(BuildContext context, List<photoModel.Photo> photos) {
+    return Container(
+      height: MediaQuery.of(context).size.height - 80,
+      width: 250,
+      child: ListView.builder(
+        itemCount: photos.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Center(
+            child: Column(
+              children: <Widget>[
+                GestureDetector(
+                  child: _buildItemPhoto(photo: photos[index]),
+                  onTap: () {},
+                ),
+                Divider(thickness: 2, color: AppColors.mercury,),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
 }
+
+class _buildItemPhoto extends StatelessWidget {
+  photoModel.Photo photo;
+
+  _buildItemPhoto({this.photo});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Hero(
+        tag: photo.id,
+        child: Photo(photo: photo.urls.small),
+      ),
+    );
+  }
+}
+
 
 class _buildItem extends StatelessWidget {
   String heroTag;
