@@ -8,13 +8,16 @@ class Photo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(50),
-      child: CachedNetworkImage(
-        imageUrl: photo != null ? photo : '',
-        fit: BoxFit.fill,
-        placeholder: (context, url) => const CircularProgressIndicator(),
-        errorWidget: (context, url, error) => const Icon(Icons.error),
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(50),
+          child: CachedNetworkImage(
+            imageUrl: photo != null ? photo : '',
+            fit: BoxFit.fill,
+            placeholder: (context, url) => const CircularProgressIndicator(),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
+          ),
       ),
     );
   }

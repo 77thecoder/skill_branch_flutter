@@ -51,6 +51,7 @@ class _FeedState extends State<Feed> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _buildPhotoList(context, data),
+      // resizeToAvoidBottomPadding: false,
     );
   }
 

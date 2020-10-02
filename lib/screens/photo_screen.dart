@@ -154,81 +154,83 @@ class _FullScreenImageState extends State<FullScreenImage> with TickerProviderSt
       ),
       body: Center(
         child:
-          Column(
-            children: <Widget>[
-              Hero(
-                tag: widget.heroTag,
-                child: Photo(photo: widget.photo)
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                child: widget.altDescription != null ? Description(description: widget.altDescription) : Description(description: 'Beautiful girl in a yellow dress with a flower on her head in the summer in the forest. Beautiful girl in a yellow dress with a flower on her head in the summer in the forest. Beautiful girl in a yellow dress with a flower on her head in the summer in the forest'),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    StaggerAnimation(
-                      controller: _controller.view,
-                      userPhoto: widget.userPhoto,
-                    ),
-                  ],
+        SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Hero(
+                  tag: widget.heroTag,
+                  child: Photo(photo: widget.photo)
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    LikeButton(likeCount: 10, isLiked: true),
-                    GestureDetector(
-                      onTap: () {
-                        print('*************** SAVE');
-                        _showDialog();
-                      },
-                      child:
-                        Container(
-                          width: 100,
-                          height: 30,
-                          decoration: BoxDecoration(
-                            color: AppColors.dodgerBlue,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: Center(
-                            child:
-                              Text(
-                                'Save',
-                                style: Theme.of(context).textTheme.headline5.copyWith(color: AppColors.white),
-                              ),
-                          ),
-                        )
-                    ),
-                    GestureDetector(
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  child: widget.altDescription != null ? Description(description: widget.altDescription) : Description(description: 'Beautiful girl in a yellow dress with a flower on her head in the summer in the forest. Beautiful girl in a yellow dress with a flower on her head in the summer in the forest. Beautiful girl in a yellow dress with a flower on her head in the summer in the forest'),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      StaggerAnimation(
+                        controller: _controller.view,
+                        userPhoto: widget.userPhoto,
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      LikeButton(likeCount: 10, isLiked: true),
+                      GestureDetector(
                         onTap: () {
-                          print('*************** VISIT');
+                          print('*************** SAVE');
+                          _showDialog();
                         },
                         child:
-                        Container(
-                          width: 100,
-                          height: 30,
-                          decoration: BoxDecoration(
-                            color: AppColors.dodgerBlue,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: Center(
-                            child:
-                            Text(
-                              'Visit',
-                              style: Theme.of(context).textTheme.headline5.copyWith(color: AppColors.white),
+                          Container(
+                            width: 100,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              color: AppColors.dodgerBlue,
+                              borderRadius: BorderRadius.circular(5),
                             ),
-                          ),
-                        )
-                    )
-                  ],
-                ),
-              )
-            ]
+                            child: Center(
+                              child:
+                                Text(
+                                  'Save',
+                                  style: Theme.of(context).textTheme.headline5.copyWith(color: AppColors.white),
+                                ),
+                            ),
+                          )
+                      ),
+                      GestureDetector(
+                          onTap: () {
+                            print('*************** VISIT');
+                          },
+                          child:
+                          Container(
+                            width: 100,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              color: AppColors.dodgerBlue,
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Center(
+                              child:
+                              Text(
+                                'Visit',
+                                style: Theme.of(context).textTheme.headline5.copyWith(color: AppColors.white),
+                              ),
+                            ),
+                          )
+                      )
+                    ],
+                  ),
+                )
+              ]
+            ),
           ),
         ),
       );
