@@ -9,8 +9,9 @@ class DataProvider {
   static PhotoList list;
 
   static Future<PhotoList> getPhotos(int page, int perPage) async {
-    print('load photos');
-    var response = await http.get(urlGetPhotos);
+    print('load photos page: $page, perPage: $perPage');
+    String url = urlGetPhotos + '&page=$page&per_page=$perPage';
+    var response = await http.get(url);
     print('photos loaded');
     if (response.statusCode == 200) {
       return PhotoList.fromJson(json.decode(response.body));

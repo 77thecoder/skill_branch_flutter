@@ -26,7 +26,7 @@ class Photo {
     this.likes,
     this.likedByUser,
     this.currentUserCollections,
-    // this.sponsorship,
+    this.sponsorship,
     this.user,
     // this.exif,
     // this.location,
@@ -53,7 +53,7 @@ class Photo {
   int likes;
   bool likedByUser;
   List<dynamic> currentUserCollections;
-  // Sponsorship sponsorship;
+  Sponsorship sponsorship;
   User user;
   // Exif exif;
   // Location location;
@@ -80,7 +80,7 @@ class Photo {
     likes: json["likes"],
     likedByUser: json["liked_by_user"],
     currentUserCollections: List<dynamic>.from(json["current_user_collections"].map((x) => x)),
-    // sponsorship: json["sponsorship"] != null ? Sponsorship.fromJson(json["sponsorship"]) : null,
+    sponsorship: json["sponsorship"] != null ? Sponsorship.fromJson(json["sponsorship"]) : null,
     user: User.fromJson(json["user"]),
     // exif: json["exif"] != null ? Exif.fromJson(json["exif"]) : null,
     // location: json["location"] != null ? Location.fromJson(json["location"]) : null,

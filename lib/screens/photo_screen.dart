@@ -1,3 +1,4 @@
+import 'package:FlutterGalleryApp/models/photo.dart' as photoModel;
 import 'package:FlutterGalleryApp/widgets/claim_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,7 +23,7 @@ class FullScreenImageArguments {
   final String altDescription;
   final String userName;
   final String name;
-  final String userPhoto;
+  final photoModel.ProfileImage userPhoto;
   final String heroTag;
   final RouteSettings settings;
 }
@@ -33,7 +34,7 @@ class FullScreenImage extends StatefulWidget {
   final String userName;
   final String name;
   final String heroTag;
-  final String userPhoto;
+  final photoModel.ProfileImage userPhoto;
 
   FullScreenImage({
     Key key,
@@ -276,7 +277,7 @@ class StaggerAnimation extends StatelessWidget {
   final Animation<double> controller;
   final Animation<double> opacity;
   final Animation<double> opacityUsername;
-  final String userPhoto;
+  final photoModel.ProfileImage userPhoto;
 
   StaggerAnimation({Key key, this.controller, this.userPhoto}) :
     opacity = Tween<double>(
@@ -312,7 +313,7 @@ class StaggerAnimation extends StatelessWidget {
       children: <Widget>[
         Opacity(
           opacity: opacity.value,
-          child: UserAvatar(userPhoto)
+          child: UserAvatar(userPhoto),
         ),
         SizedBox(width: 6,),
         Opacity(
