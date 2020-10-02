@@ -233,6 +233,7 @@ class _FullScreenImageState extends State<FullScreenImage> with TickerProviderSt
             ),
           ),
         ),
+        resizeToAvoidBottomPadding: false,
       );
   }
 }
