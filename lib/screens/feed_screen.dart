@@ -31,8 +31,10 @@ class _FeedState extends State<Feed> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
           _scrollController.position.maxScrollExtent * 0.8) {
-        print('page scroll: ' + page.toString());
-        _getPhotos(page);
+        if (!isLoading) {
+          print('page scroll: ' + page.toString());
+          _getPhotos(page);
+        }
       }
     });
 
@@ -61,7 +63,7 @@ class _FeedState extends State<Feed> {
 
       setState(() {
         data.addAll(response.photos);
-        page++;
+        this.page++;
         isLoading = false;
       });
     }
