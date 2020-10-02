@@ -50,7 +50,7 @@ class _FeedState extends State<Feed> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: !isLoading ? _buildPhotoList(context, data) : Center(child: CircularProgressIndicator()),
+      body: _buildPhotoList(context, data),
     );
   }
 
@@ -82,6 +82,14 @@ class _FeedState extends State<Feed> {
             controller: _scrollController,
             itemCount: photos.length,
             itemBuilder: (BuildContext context, int index) {
+              if (index == data.length) {
+                return Center(
+                  child: Opacity(
+                    opacity: isLoading ? 1 : 0,
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }
               return Center(
                 child: Column(
                   // crossAxisAlignment: CrossAxisAlignment.start,
