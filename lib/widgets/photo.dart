@@ -12,14 +12,16 @@ class Photo extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 6, vertical: 6),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(17),
-          child: CachedNetworkImage(
-            imageUrl: photo != null ? photo : '',
-            width: MediaQuery.of(context).size.width,
-            height: 335,
-            fit: BoxFit.cover,
-            placeholder: (context, url) => const CircularProgressIndicator(),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
+        child: CachedNetworkImage(
+          imageUrl: photo != null ? photo : '',
+          width: MediaQuery.of(context).size.width,
+          height: 335,
+          fit: BoxFit.cover,
+          placeholder: (context, url) => Center(
+            child: const CircularProgressIndicator(),
           ),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
+        ),
       ),
     );
   }
