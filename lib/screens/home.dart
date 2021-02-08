@@ -79,19 +79,19 @@ class _HomeState extends State<Home> {
   final List<BottomNavyBarItem> _tabs = [
     BottomNavyBarItem(
       asset: AppIcons.home,
-      title: Text('Feed'),
+      title: Text('Home'),
       activeColor: AppColors.dodgerBlue,
       inactiveColor: AppColors.manatee,
     ),
     BottomNavyBarItem(
-      asset: AppIcons.home,
+      asset: Icons.search,
       title: Text('Search'),
       activeColor: AppColors.dodgerBlue,
       inactiveColor: AppColors.manatee,
     ),
     BottomNavyBarItem(
-      asset: AppIcons.home,
-      title: Text('User'),
+      asset: Icons.person_rounded,
+      title: Text('Profile'),
       activeColor: AppColors.dodgerBlue,
       inactiveColor: AppColors.manatee,
     ),
@@ -106,6 +106,7 @@ class _HomeState extends State<Home> {
         curve: Curves.ease,
         currentTab: currentTab,
         items: _tabs,
+        mainAxisAlignment: MainAxisAlignment.center,
         onItemSelected: (int index) async {
           if (index == 1) {
             var value = await Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
@@ -219,17 +220,19 @@ class _ItemWidget extends StatelessWidget {
       duration: animationDuration,
       padding: const EdgeInsets.symmetric(horizontal: 8),
       width: isSelected ? 120 : (MediaQuery.of(context).size.width - 120 - 8 * 4 -4 * 2) / 2,
+      height: double.infinity,
       curve: curve,
       decoration: BoxDecoration(
         color:  isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
         borderRadius: BorderRadius.circular(itemCornerRadius),
       ),
-      child: Row(
+      child: Column(
         children: <Widget>[
           Icon(item.asset, size: 20, color: isSelected ? item.activeColor : item.inactiveColor,),
           SizedBox(width: 4,),
           Expanded(
             child: Container(
+              alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(horizontal: 4),
               child: DefaultTextStyle.merge(
                 child: item.title,
