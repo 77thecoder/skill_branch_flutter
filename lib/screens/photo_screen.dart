@@ -7,16 +7,15 @@ import '../widgets/widgets.dart';
 import '../res/res.dart';
 
 class FullScreenImageArguments {
-  FullScreenImageArguments({
-    this.key,
-    this.photo,
-    this.altDescription,
-    this.userName,
-    this.name,
-    this.userPhoto,
-    this.heroTag,
-    this.settings
-  });
+  FullScreenImageArguments(
+      {this.key,
+      this.photo,
+      this.altDescription,
+      this.userName,
+      this.name,
+      this.userPhoto,
+      this.heroTag,
+      this.settings});
 
   final Key key;
   final String photo;
@@ -36,21 +35,22 @@ class FullScreenImage extends StatefulWidget {
   final String heroTag;
   final photoModel.ProfileImage userPhoto;
 
-  FullScreenImage({
-    Key key,
-    this.photo,
-    this.altDescription,
-    this.name,
-    this.userName,
-    this.heroTag,
-    this.userPhoto
-  }) : super(key: key);
+  FullScreenImage(
+      {Key key,
+      this.photo,
+      this.altDescription,
+      this.name,
+      this.userName,
+      this.heroTag,
+      this.userPhoto})
+      : super(key: key);
 
   @override
   _FullScreenImageState createState() => _FullScreenImageState();
 }
 
-class _FullScreenImageState extends State<FullScreenImage> with TickerProviderStateMixin {
+class _FullScreenImageState extends State<FullScreenImage>
+    with TickerProviderStateMixin {
   AnimationController _controller;
 
   @override
@@ -58,10 +58,9 @@ class _FullScreenImageState extends State<FullScreenImage> with TickerProviderSt
     super.initState();
 
     _controller = AnimationController(
-      duration: Duration(milliseconds: 1500),
+      duration: Duration(milliseconds: 500),
       vsync: this,
     )..forward();
-
   }
 
   @override
@@ -103,11 +102,17 @@ class _FullScreenImageState extends State<FullScreenImage> with TickerProviderSt
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.white,
-        title: Text('Photo', style: TextStyle(color: AppColors.black),),
+        title: Text(
+          'Photo',
+          style: TextStyle(color: AppColors.black),
+        ),
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
-              icon: Icon(CupertinoIcons.back, color: AppColors.black,),
+              icon: Icon(
+                CupertinoIcons.back,
+                color: AppColors.black,
+              ),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -116,54 +121,53 @@ class _FullScreenImageState extends State<FullScreenImage> with TickerProviderSt
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.more_vert, color: AppColors.black),
-            onPressed: () {
-              showModalBottomSheet(
-                shape:  RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(40),
-                    topRight: Radius.circular(40),
-                  )
-                ),
-                context: context,
-                builder: (BuildContext context) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: AppColors.mercury,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30),
-                      ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Container(
-                          height: 300,
-                          padding: EdgeInsets.symmetric(vertical: 4, horizontal: 2),
-                          child: ClaimBottomSheet(),
+              icon: Icon(Icons.more_vert, color: AppColors.black),
+              onPressed: () {
+                showModalBottomSheet(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40),
+                    )),
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.mercury,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(30),
+                            topRight: Radius.circular(30),
+                          ),
                         ),
-                      ]
-                    ),
-                  );
-                }
-              );
-            })
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Container(
+                                height: 300,
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 4, horizontal: 2),
+                                child: ClaimBottomSheet(),
+                              ),
+                            ]),
+                      );
+                    });
+              })
         ],
       ),
-      body: Center(
-        child:
-        SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                Hero(
-                  tag: widget.heroTag,
-                  child: Photo(photo: widget.photo)
-                ),
+      body: Column(
+        children: [
+          Center(
+            child: SingleChildScrollView(
+              child: Column(children: <Widget>[
+                Hero(tag: widget.heroTag, child: Photo(photo: widget.photo)),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  child: widget.altDescription != null ? Description(description: widget.altDescription) : Description(description: 'Beautiful girl in a yellow dress with a flower on her head in the summer in the forest. Beautiful girl in a yellow dress with a flower on her head in the summer in the forest. Beautiful girl in a yellow dress with a flower on her head in the summer in the forest'),
+                  child: widget.altDescription != null
+                      ? Description(description: widget.altDescription)
+                      : Description(
+                          description:
+                              'Beautiful girl in a yellow dress with a flower on her head in the summer in the forest. Beautiful girl in a yellow dress with a flower on her head in the summer in the forest. Beautiful girl in a yellow dress with a flower on her head in the summer in the forest'),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -184,12 +188,11 @@ class _FullScreenImageState extends State<FullScreenImage> with TickerProviderSt
                     children: <Widget>[
                       LikeButton(likeCount: 10, isLiked: true),
                       GestureDetector(
-                        onTap: () {
-                          print('*************** SAVE');
-                          _showDialog();
-                        },
-                        child:
-                          Container(
+                          onTap: () {
+                            print('*************** SAVE');
+                            _showDialog();
+                          },
+                          child: Container(
                             width: 100,
                             height: 30,
                             decoration: BoxDecoration(
@@ -197,20 +200,20 @@ class _FullScreenImageState extends State<FullScreenImage> with TickerProviderSt
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: Center(
-                              child:
-                                Text(
-                                  'Save',
-                                  style: Theme.of(context).textTheme.headline5.copyWith(color: AppColors.white),
-                                ),
+                              child: Text(
+                                'Save',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline5
+                                    .copyWith(color: AppColors.white),
+                              ),
                             ),
-                          )
-                      ),
+                          )),
                       GestureDetector(
                           onTap: () {
                             print('*************** VISIT');
                           },
-                          child:
-                          Container(
+                          child: Container(
                             width: 100,
                             height: 30,
                             decoration: BoxDecoration(
@@ -218,23 +221,25 @@ class _FullScreenImageState extends State<FullScreenImage> with TickerProviderSt
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: Center(
-                              child:
-                              Text(
+                              child: Text(
                                 'Visit',
-                                style: Theme.of(context).textTheme.headline5.copyWith(color: AppColors.white),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline5
+                                    .copyWith(color: AppColors.white),
                               ),
                             ),
-                          )
-                      )
+                          ))
                     ],
                   ),
                 )
-              ]
+              ]),
             ),
           ),
-        ),
-        resizeToAvoidBottomPadding: false,
-      );
+        ],
+      ),
+      resizeToAvoidBottomPadding: false,
+    );
   }
 }
 
@@ -245,7 +250,10 @@ class Name extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(name, style: Theme.of(context).textTheme.headline6,);
+    return Text(
+      name,
+      style: Theme.of(context).textTheme.headline6,
+    );
   }
 }
 
@@ -256,7 +264,13 @@ class Username extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(userName, style: Theme.of(context).textTheme.subtitle1.copyWith(color: AppColors.manatee),);
+    return Text(
+      userName,
+      style: Theme.of(context)
+          .textTheme
+          .subtitle1
+          .copyWith(color: AppColors.manatee),
+    );
   }
 }
 
@@ -282,56 +296,42 @@ class StaggerAnimation extends StatelessWidget {
   final Animation<double> opacityUsername;
   final photoModel.ProfileImage userPhoto;
 
-  StaggerAnimation({Key key, this.controller, this.userPhoto}) :
-    opacity = Tween<double>(
-      begin: 0.0,
-      end: 1.0
-    ).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: Interval(
-          0.0, 0.5,
-          curve: Curves.ease
-        ),
-      ),
-    ),
-
-    opacityUsername = Tween<double>(
-      begin: 0.0,
-      end: 1.0
-    ).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: Interval(
-          0.5, 1.0,
-          curve: Curves.ease
-        ),
-      ),
-    ),
-
-    super(key: key);
-
-  Widget _buildAnimation(BuildContext context, Widget child) {
-    return Row(
-      children: <Widget>[
-        Opacity(
-          opacity: opacity.value,
-          child: UserAvatar(userPhoto),
-        ),
-        SizedBox(width: 6,),
-        Opacity(
-          opacity: opacityUsername.value,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Name(name: 'Kirill Adeshchenko'),
-              Username(userName: '@kaparray'),
-            ],
+  StaggerAnimation({Key key, this.controller, this.userPhoto})
+      : opacity = Tween<double>(begin: 0.0, end: 1.0).animate(
+          CurvedAnimation(
+            parent: controller,
+            curve: Interval(0.0, 0.5, curve: Curves.ease),
           ),
         ),
-      ]
-    );
+        opacityUsername = Tween<double>(begin: 0.0, end: 1.0).animate(
+          CurvedAnimation(
+            parent: controller,
+            curve: Interval(0.5, 1.0, curve: Curves.ease),
+          ),
+        ),
+        super(key: key);
+
+  Widget _buildAnimation(BuildContext context, Widget child) {
+    return Row(children: <Widget>[
+      Opacity(
+        opacity: opacity.value,
+        child: UserAvatar(userPhoto),
+      ),
+      SizedBox(
+        width: 6,
+      ),
+      Opacity(
+        opacity: opacityUsername.value,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Name(name: 'Kirill Adeshchenko'),
+            Username(userName: '@kaparray'),
+          ],
+        ),
+      ),
+    ]);
   }
 
   @override
