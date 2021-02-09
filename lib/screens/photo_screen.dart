@@ -58,7 +58,7 @@ class _FullScreenImageState extends State<FullScreenImage>
     super.initState();
 
     _controller = AnimationController(
-      duration: Duration(milliseconds: 500),
+      duration: Duration(milliseconds: 1500),
       vsync: this,
     )..forward();
   }
