@@ -7,15 +7,16 @@ import '../widgets/widgets.dart';
 import '../res/res.dart';
 
 class FullScreenImageArguments {
-  FullScreenImageArguments(
-      {this.key,
-      this.photo,
-      this.altDescription,
-      this.userName,
-      this.name,
-      this.userPhoto,
-      this.heroTag,
-      this.settings});
+  FullScreenImageArguments({
+    this.key,
+    this.photo,
+    this.altDescription,
+    this.userName,
+    this.name,
+    this.userPhoto,
+    this.heroTag,
+    this.settings,
+  });
 
   final Key key;
   final String photo;
@@ -177,6 +178,8 @@ class _FullScreenImageState extends State<FullScreenImage>
                       StaggerAnimation(
                         controller: _controller.view,
                         userPhoto: widget.userPhoto,
+                        name: widget.name,
+                        userName: widget.userName,
                       ),
                     ],
                   ),
@@ -295,9 +298,16 @@ class StaggerAnimation extends StatelessWidget {
   final Animation<double> opacity;
   final Animation<double> opacityUsername;
   final photoModel.ProfileImage userPhoto;
+  final String name;
+  final String userName;
 
-  StaggerAnimation({Key key, this.controller, this.userPhoto})
-      : opacity = Tween<double>(begin: 0.0, end: 1.0).animate(
+  StaggerAnimation({
+    Key key,
+    this.controller,
+    this.userPhoto,
+    this.name,
+    this.userName,
+  })  : opacity = Tween<double>(begin: 0.0, end: 1.0).animate(
           CurvedAnimation(
             parent: controller,
             curve: Interval(0.0, 0.5, curve: Curves.ease),
@@ -326,8 +336,8 @@ class StaggerAnimation extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Name(name: 'Kirill Adeshchenko'),
-            Username(userName: '@kaparray'),
+            Name(name: name == null ? 'unknow' : name),
+            Username(userName: '@' + userName),
           ],
         ),
       ),

@@ -136,8 +136,8 @@ class _buildItemPhoto extends StatelessWidget {
                   heroTag: photo.id,
                   userPhoto: photo.user.profileImage,
                   altDescription: 'This is Flutter dash. I love him :)',
-                  name: 'Kirill Adeshchenko',
-                  userName: '@kaparray',
+                  name: photo.user.name,
+                  userName: photo.user.username,
                   settings: RouteSettings(arguments: kFlutterDash)
               )
             );

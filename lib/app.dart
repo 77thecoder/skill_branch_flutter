@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
             photo: args.photo,
             altDescription: args.altDescription,
             userName: args.userName,
+            name: args.name,
             userPhoto: args.userPhoto,
             heroTag: args.heroTag,
           );
