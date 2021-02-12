@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:FlutterGalleryApp/models/models.dart';
 import 'package:FlutterGalleryApp/models/photo_list.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,6 +20,18 @@ class DataProvider {
     print('photos loaded');
     if (response.statusCode == 200) {
       return PhotoList.fromJson(json.decode(response.body));
+    } else {
+      throw Exception("Couldn't get photos: ${response.reasonPhrase}");
+    }
+  }
+
+  static Future<UserModel> user(String username) async {
+    print('get profile user $username');
+    String url = '$UNSPLASH_URL/users/$username';
+    var response = await http.get(url, headers: HEADER);
+    print('profile user completed');
+    if (response.statusCode == 200) {
+      return UserModel.fromJson(json.decode(response.body));
     } else {
       throw Exception("Couldn't get photos: ${response.reasonPhrase}");
     }
