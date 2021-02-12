@@ -60,7 +60,7 @@ class _FeedState extends State<Feed> {
       setState(() {
         isLoading = true;
       });
-      var response = await DataProvider.getPhotos(page, 10);
+      var response = await DataProvider.getPhotos(page, 15);
 
       setState(() {
         data.addAll(response.photos);
