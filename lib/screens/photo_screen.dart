@@ -1,5 +1,6 @@
 import 'package:FlutterGalleryApp/models/photo.dart' as photoModel;
 import 'package:FlutterGalleryApp/widgets/claim_bottom_sheet.dart';
+import 'package:FlutterGalleryApp/widgets/photo_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:gallery_saver/gallery_saver.dart';
@@ -16,6 +17,7 @@ class FullScreenImageArguments {
     this.userPhoto,
     this.heroTag,
     this.settings,
+    this.model,
   });
 
   final Key key;
@@ -26,6 +28,7 @@ class FullScreenImageArguments {
   final photoModel.ProfileImage userPhoto;
   final String heroTag;
   final RouteSettings settings;
+  final photoModel.Photo model;
 }
 
 class FullScreenImage extends StatefulWidget {
@@ -35,16 +38,18 @@ class FullScreenImage extends StatefulWidget {
   final String name;
   final String heroTag;
   final photoModel.ProfileImage userPhoto;
+  final photoModel.Photo model;
 
-  FullScreenImage(
-      {Key key,
-      this.photo,
-      this.altDescription,
-      this.name,
-      this.userName,
-      this.heroTag,
-      this.userPhoto})
-      : super(key: key);
+  FullScreenImage({
+    Key key,
+    this.photo,
+    this.altDescription,
+    this.name,
+    this.userName,
+    this.heroTag,
+    this.userPhoto,
+    this.model,
+  }) : super(key: key);
 
   @override
   _FullScreenImageState createState() => _FullScreenImageState();
@@ -156,12 +161,10 @@ class _FullScreenImageState extends State<FullScreenImage>
               })
         ],
       ),
-      body: Column(
-        children: [
-          Center(
-            child: SingleChildScrollView(
+      body: SingleChildScrollView(
               child: Column(children: <Widget>[
-                Hero(tag: widget.heroTag, child: Photo(photo: widget.photo)),
+                // Hero(tag: widget.heroTag, child: Photo(photo: widget.photo)),
+                Hero(tag: widget.heroTag, child: PhotoDetail(photo: widget.model)),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   child: widget.altDescription != null
@@ -237,9 +240,6 @@ class _FullScreenImageState extends State<FullScreenImage>
                   ),
                 )
               ]),
-            ),
-          ),
-        ],
       ),
       resizeToAvoidBottomPadding: false,
     );

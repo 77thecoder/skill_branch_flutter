@@ -1,6 +1,7 @@
 import 'package:FlutterGalleryApp/dataprovider.dart';
 import 'package:FlutterGalleryApp/res/res.dart';
 import 'package:FlutterGalleryApp/screens/photo_screen.dart';
+import 'package:FlutterGalleryApp/widgets/photo_detail.dart';
 import 'package:FlutterGalleryApp/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:FlutterGalleryApp/res/colors.dart';
@@ -132,6 +133,7 @@ class _buildItemPhoto extends StatelessWidget {
               context,
               '/fullScreenImage',
               arguments: FullScreenImageArguments(
+                  model: photo,
                   photo: photo.urls.small,
                   heroTag: photo.id,
                   userPhoto: photo.user.profileImage,
@@ -145,6 +147,7 @@ class _buildItemPhoto extends StatelessWidget {
           child: Hero(
             tag: photo.id,
             child: Photo(photo: photo.urls.small),
+            // child: PhotoDetail(photo: photo),
           ),
         ),
         _buildPhotoMeta(photo: photo),
