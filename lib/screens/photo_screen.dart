@@ -1,4 +1,5 @@
 import 'package:FlutterGalleryApp/models/photo.dart' as photoModel;
+import 'package:FlutterGalleryApp/screens/profile_screen.dart';
 import 'package:FlutterGalleryApp/widgets/claim_bottom_sheet.dart';
 import 'package:FlutterGalleryApp/widgets/photo_detail.dart';
 import 'package:flutter/material.dart';
@@ -179,7 +180,13 @@ class _FullScreenImageState extends State<FullScreenImage>
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 GestureDetector(
-                  onTap: () => { print('select ${widget.name}') },
+                  onTap: () => {
+                    Navigator.pushNamed(
+                      context,
+                      ProfileScreen.routeName,
+                      arguments: ProfileScreenArguments(username: widget.userName),
+                    )
+                  },
                   child: StaggerAnimation(
                     controller: _controller.view,
                     userPhoto: widget.userPhoto,

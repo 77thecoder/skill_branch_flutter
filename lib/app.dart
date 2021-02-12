@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:FlutterGalleryApp/res/res.dart';
 import 'package:FlutterGalleryApp/screens/home.dart';
 import 'package:FlutterGalleryApp/screens/photo_screen.dart';
+import 'package:FlutterGalleryApp/screens/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,7 +35,8 @@ class MyApp extends StatelessWidget {
       },
       onGenerateRoute: (RouteSettings settings) {
         if (settings.name == '/fullScreenImage') {
-          FullScreenImageArguments args = (settings.arguments as FullScreenImageArguments);
+          FullScreenImageArguments args =
+              (settings.arguments as FullScreenImageArguments);
           final route = FullScreenImage(
             model: args.model,
             photo: args.photo,
@@ -46,9 +48,26 @@ class MyApp extends StatelessWidget {
           );
 
           if (Platform.isAndroid) {
-            return MaterialPageRoute(builder: (context) => route, settings: args.settings);
+            return MaterialPageRoute(
+                builder: (context) => route, settings: args.settings);
           } else if (Platform.isIOS) {
-            return CupertinoPageRoute(builder: (context) => route, settings: args.settings);
+            return CupertinoPageRoute(
+                builder: (context) => route, settings: args.settings);
+          }
+        }
+        ;
+        if (settings.name == ProfileScreen.routeName) {
+          ProfileScreenArguments args = (settings.arguments as ProfileScreenArguments);
+          final route = ProfileScreen(
+            username: args.username,
+          );
+
+          if (Platform.isAndroid) {
+            return MaterialPageRoute(
+                builder: (context) => route);
+          } else if (Platform.isIOS) {
+            return CupertinoPageRoute(
+                builder: (context) => route);
           }
         }
       },
