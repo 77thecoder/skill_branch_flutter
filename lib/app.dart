@@ -18,6 +18,11 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        brightness: Brightness.light,
+        primaryColor: Colors.pink[800], //Changing this will change the color of the TabBar
+        accentColor: Colors.cyan[600],
+      ),
       home: Home(Connectivity().onConnectivityChanged),
       onUnknownRoute: (RouteSettings settings) {
         return MaterialPageRoute(builder: (BuildContext context) {

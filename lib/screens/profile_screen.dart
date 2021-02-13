@@ -88,6 +88,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Column(
           children: [
             _buildProfileHeader(),
+            SizedBox(height: 40),
+            _buildProfileTabs(),
           ],
         ),
       ),
@@ -175,34 +177,71 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
-}
 
-Widget _buildIconUrl() {
-  return Stack(children: <Widget>[
-    Container(
-      width: 15,
-      height: 15,
-    ),
-    Positioned(
-      left: 4.5,
-      child: SvgPicture.asset(
-        'assets/svg/url_top.svg',
-        height: 10,
-        width: 10,
-        color: AppColors.dodgerBlue,
-        fit: BoxFit.contain,
+  Widget _buildIconUrl() {
+    return Stack(children: <Widget>[
+      Container(
+        width: 15,
+        height: 15,
       ),
-    ),
-    Positioned(
-      top: 5,
-      left: 2,
-      child: SvgPicture.asset(
-        'assets/svg/url_bottom.svg',
-        height: 10,
-        width: 10,
-        color: AppColors.dodgerBlue,
-        fit: BoxFit.contain,
+      Positioned(
+        left: 4.5,
+        child: SvgPicture.asset(
+          'assets/svg/url_top.svg',
+          height: 10,
+          width: 10,
+          color: AppColors.dodgerBlue,
+          fit: BoxFit.contain,
+        ),
       ),
-    ),
-  ]);
+      Positioned(
+        top: 5,
+        left: 2,
+        child: SvgPicture.asset(
+          'assets/svg/url_bottom.svg',
+          height: 10,
+          width: 10,
+          color: AppColors.dodgerBlue,
+          fit: BoxFit.contain,
+        ),
+      ),
+    ]);
+  }
+
+  Widget _buildProfileTabs() {
+    return DefaultTabController(
+      length: 3,
+      child: TabBar(
+        tabs: [
+          Tab(
+            icon: SvgPicture.asset(
+              'assets/svg/profile_tab_home.svg',
+              // height: 10,
+              // width: 10,
+              color: AppColors.black,
+              fit: BoxFit.contain,
+            ),
+          ),
+          Tab(
+            icon: SvgPicture.asset(
+              'assets/svg/profile_tab_like.svg',
+              // height: 10,
+              // width: 10,
+              color: AppColors.black,
+              fit: BoxFit.contain,
+            ),
+          ),
+          Tab(
+            icon: SvgPicture.asset(
+              'assets/svg/profile_tab_favorites.svg',
+              // height: 10,
+              // width: 10,
+              color: AppColors.black,
+              fit: BoxFit.contain,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
