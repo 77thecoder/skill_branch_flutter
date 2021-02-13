@@ -109,6 +109,7 @@ class _FullScreenImageState extends State<FullScreenImage>
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.white,
+        centerTitle: true,
         title: Text(
           'Photo',
           style: TextStyle(color: AppColors.black),

@@ -18,12 +18,16 @@ dependencies:
   connectivity: ^0.4.9+2
   gallery_saver: ^2.0.1
   http: ^0.12.2
+  flutter_svg: ^0.19.2+1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
 flutter:
+  assets:
+    - assets/
+    - assets/svg/
 
   uses-material-design: true
 

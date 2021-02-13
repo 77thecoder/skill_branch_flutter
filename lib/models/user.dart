@@ -390,8 +390,8 @@ class UserCategory {
   String prettySlug;
 
   factory UserCategory.fromJson(Map<String, dynamic> json) => UserCategory(
-    slug: json["slug"],
-    prettySlug: json["pretty_slug"],
+    slug: json == null ? '' : json["slug"],
+    prettySlug: json == null ? '' : json["pretty_slug"],
   );
 
   Map<String, dynamic> toJson() => {

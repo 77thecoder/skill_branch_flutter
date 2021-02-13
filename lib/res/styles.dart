@@ -4,6 +4,14 @@ import 'package:flutter/widgets.dart';
 import 'colors.dart';
 
 class AppStyles {
+  static const counter = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+    color: AppColors.dodgerBlue,
+    fontFamily: 'Roboto',
+    letterSpacing: -0.47,
+  );
+
   static const h6 = TextStyle(
     fontSize: 12,
     height: 20 / 12,
