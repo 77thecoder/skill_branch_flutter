@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
         primaryColor: Colors.pink[800], //Changing this will change the color of the TabBar
         accentColor: Colors.cyan[600],
+        textTheme: AppStyles.buildAppTextTheme(),
       ),
       home: Home(Connectivity().onConnectivityChanged),
       onUnknownRoute: (RouteSettings settings) {
@@ -76,9 +77,6 @@ class MyApp extends StatelessWidget {
           }
         }
       },
-      theme: ThemeData(
-        textTheme: AppStyles.buildAppTextTheme(),
-      ),
     );
   }
 }

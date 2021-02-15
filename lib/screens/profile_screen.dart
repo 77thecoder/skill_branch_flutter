@@ -23,14 +23,22 @@ class ProfileScreen extends StatefulWidget {
   _ProfileScreenState createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateMixin {
   bool isLoadDataProfile = false;
   UserModel user;
+  TabController _tabController;
 
   @override
   initState() {
     super.initState();
+    _tabController = new TabController(vsync: this, length: 3);
+    _tabController.addListener(_handleTabSelection);
     _getProfile(widget.username);
+  }
+
+  void _handleTabSelection() {
+    setState(() {
+    });
   }
 
   Future<UserModel> _getProfile(String username) async {
@@ -212,31 +220,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return DefaultTabController(
       length: 3,
       child: TabBar(
+        controller: _tabController,
+        indicatorColor: AppColors.dodgerBlue,
         tabs: [
           Tab(
             icon: SvgPicture.asset(
               'assets/svg/profile_tab_home.svg',
-              // height: 10,
-              // width: 10,
-              color: AppColors.black,
+              color: _tabController.index == 0 ? AppColors.dodgerBlue : AppColors.black,
               fit: BoxFit.contain,
             ),
           ),
           Tab(
             icon: SvgPicture.asset(
               'assets/svg/profile_tab_like.svg',
-              // height: 10,
-              // width: 10,
-              color: AppColors.black,
+              color: _tabController.index == 1 ? AppColors.dodgerBlue : AppColors.black,
               fit: BoxFit.contain,
             ),
           ),
           Tab(
             icon: SvgPicture.asset(
               'assets/svg/profile_tab_favorites.svg',
-              // height: 10,
-              // width: 10,
-              color: AppColors.black,
+              color: _tabController.index == 2 ? AppColors.dodgerBlue : AppColors.black,
               fit: BoxFit.contain,
             ),
           ),
