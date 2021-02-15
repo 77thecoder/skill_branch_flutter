@@ -19,6 +19,7 @@ dependencies:
   gallery_saver: ^2.0.1
   http: ^0.12.2
   flutter_svg: ^0.19.2+1
+  readmore: ^1.0.1
 
 dev_dependencies:
   flutter_test:

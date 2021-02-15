@@ -2,6 +2,7 @@ import 'package:FlutterGalleryApp/dataprovider.dart';
 import 'package:FlutterGalleryApp/models/models.dart';
 import 'package:FlutterGalleryApp/res/colors.dart';
 import 'package:FlutterGalleryApp/res/res.dart';
+import 'package:FlutterGalleryApp/widgets/profile_biography.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,8 @@ class ProfileScreen extends StatefulWidget {
   _ProfileScreenState createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateMixin {
+class _ProfileScreenState extends State<ProfileScreen>
+    with TickerProviderStateMixin {
   bool isLoadDataProfile = false;
   UserModel user;
   TabController _tabController;
@@ -31,14 +33,13 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
   @override
   initState() {
     super.initState();
-    _tabController = new TabController(vsync: this, length: 3);
+    _tabController = TabController(vsync: this, length: 3);
     _tabController.addListener(_handleTabSelection);
     _getProfile(widget.username);
   }
 
   void _handleTabSelection() {
-    setState(() {
-    });
+    setState(() {});
   }
 
   Future<UserModel> _getProfile(String username) async {
@@ -86,21 +87,29 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
             ? Center(
                 child: CircularProgressIndicator(),
               )
-            : _buildProfile());
+            : Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 10,
+                  horizontal: 10,
+                ),
+                child: _buildProfile(),
+              ));
   }
 
   Widget _buildProfile() {
-    return Center(
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            _buildProfileHeader(),
-            SizedBox(height: 40),
-            _buildProfileTabs(),
-          ],
-        ),
-      ),
+    return Column(
+      children: [
+        _buildProfileHeader(),
+        SizedBox(height: 40),
+        if (user.bio != null) ...{
+          Container(
+            alignment: Alignment.centerLeft,
+            child: _buildProfileBiography(),
+          ),
+        },
+        SizedBox(height: 40),
+        _buildProfileTabs(),
+      ],
     );
   }
 
@@ -172,8 +181,8 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                     SizedBox(width: 10),
                     if (user.portfolioUrl != null)
                       Text(
-                        user.portfolioUrl.replaceAll(
-                            new RegExp('^http:\/\/|https:\/\/'), ''),
+                        user.portfolioUrl
+                            .replaceAll(RegExp('^http:\/\/|https:\/\/'), ''),
                         overflow: TextOverflow.ellipsis,
                       ),
                   ],
@@ -217,35 +226,57 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
   }
 
   Widget _buildProfileTabs() {
-    return DefaultTabController(
-      length: 3,
-      child: TabBar(
-        controller: _tabController,
-        indicatorColor: AppColors.dodgerBlue,
-        tabs: [
-          Tab(
-            icon: SvgPicture.asset(
-              'assets/svg/profile_tab_home.svg',
-              color: _tabController.index == 0 ? AppColors.dodgerBlue : AppColors.black,
-              fit: BoxFit.contain,
+    return Expanded(
+      child: DefaultTabController(
+        length: 3,
+        child: Column(
+          children: [
+            TabBar(
+              controller: _tabController,
+              labelColor: AppColors.dodgerBlue,
+              unselectedLabelColor: Colors.black,
+              indicatorColor: AppColors.dodgerBlue,
+              tabs: [
+                Tab(
+                  icon: Icon(
+                    Icons.home_outlined,
+                  ),
+                ),
+                Tab(
+                  icon: Icon(
+                    Icons.favorite_border_outlined,
+                  ),
+                ),
+                Tab(
+                  icon: Icon(
+                    Icons.bookmark_outline_outlined,
+                  ),
+                ),
+              ],
             ),
-          ),
-          Tab(
-            icon: SvgPicture.asset(
-              'assets/svg/profile_tab_like.svg',
-              color: _tabController.index == 1 ? AppColors.dodgerBlue : AppColors.black,
-              fit: BoxFit.contain,
+            Container(
+              color: AppColors.white,
+              height: 1,
             ),
-          ),
-          Tab(
-            icon: SvgPicture.asset(
-              'assets/svg/profile_tab_favorites.svg',
-              color: _tabController.index == 2 ? AppColors.dodgerBlue : AppColors.black,
-              fit: BoxFit.contain,
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: <Widget>[
+                  Text('Home'),
+                  Text('Likes'),
+                  Text('Favorites'),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget _buildProfileBiography() {
+    return Biography(
+      biography: user.bio,
     );
   }
 }
