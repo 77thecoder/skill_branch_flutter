@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:FlutterGalleryApp/models/models.dart';
 import 'package:FlutterGalleryApp/models/photo_list.dart';
+import 'package:FlutterGalleryApp/models/user_main_photo.dart';
+import 'package:FlutterGalleryApp/widgets/user_main_photo_list.dart';
 import 'package:http/http.dart' as http;
 
 class DataProvider {
@@ -34,6 +36,18 @@ class DataProvider {
       return UserModel.fromJson(json.decode(response.body));
     } else {
       throw Exception("Couldn't get photos: ${response.reasonPhrase}");
+    }
+  }
+
+  static Future<List<UserMainPhotos>> getUserMainPhotos(String username, int page, int perPage) async {
+    print('get user main photos');
+    String url = '$UNSPLASH_URL/users/$username/photos?page=$page&per_page=$perPage';
+    var response = await http.get(url, headers: HEADER);
+    print('user main photos loaded');
+    if (response.statusCode == 200) {
+      return userMainPhotosFromJson(response.body);
+    } else {
+      throw Exception("Couldn't get main photos users: ${response.reasonPhrase}");
     }
   }
 }

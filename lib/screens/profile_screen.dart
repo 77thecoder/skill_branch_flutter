@@ -3,6 +3,7 @@ import 'package:FlutterGalleryApp/models/models.dart';
 import 'package:FlutterGalleryApp/res/colors.dart';
 import 'package:FlutterGalleryApp/res/res.dart';
 import 'package:FlutterGalleryApp/widgets/profile_biography.dart';
+import 'package:FlutterGalleryApp/widgets/user_main_photo_list.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -183,7 +184,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                       Text(
                         user.portfolioUrl
                             .replaceAll(RegExp('^http:\/\/|https:\/\/'), ''),
-                        overflow: TextOverflow.ellipsis,
+                        overflow: TextOverflow.clip,
                       ),
                   ],
                 ),
@@ -255,14 +256,13 @@ class _ProfileScreenState extends State<ProfileScreen>
               ],
             ),
             Container(
-              color: AppColors.white,
-              height: 1,
+              height: 5,
             ),
             Expanded(
               child: TabBarView(
                 controller: _tabController,
                 children: <Widget>[
-                  Text('Home'),
+                  UserMainPhotoList(username: user.username),
                   Text('Likes'),
                   Text('Favorites'),
                 ],
