@@ -2,6 +2,7 @@ import 'package:FlutterGalleryApp/dataprovider.dart';
 import 'package:FlutterGalleryApp/models/models.dart';
 import 'package:FlutterGalleryApp/res/colors.dart';
 import 'package:FlutterGalleryApp/res/res.dart';
+import 'package:FlutterGalleryApp/screens/profile_slivers.dart';
 import 'package:FlutterGalleryApp/widgets/profile_biography.dart';
 import 'package:FlutterGalleryApp/widgets/user_main_photo_list.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -63,38 +64,40 @@ class _ProfileScreenState extends State<ProfileScreen>
         ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: AppColors.white,
-          centerTitle: true,
-          title: Text(
-            'Profile',
-            style: TextStyle(color: AppColors.black),
-          ),
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: Icon(
-                  CupertinoIcons.back,
-                  color: AppColors.black,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              );
-            },
-          ),
-        ),
-        body: isLoadDataProfile
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 10,
-                  horizontal: 10,
-                ),
-                child: _buildProfile(),
-              ));
+      body: ProfileSlivers(),
+        // appBar: AppBar(
+        //   backgroundColor: AppColors.white,
+        //   centerTitle: true,
+        //   title: Text(
+        //     'Profile',
+        //     style: TextStyle(color: AppColors.black),
+        //   ),
+        //   leading: Builder(
+        //     builder: (BuildContext context) {
+        //       return IconButton(
+        //         icon: Icon(
+        //           CupertinoIcons.back,
+        //           color: AppColors.black,
+        //         ),
+        //         onPressed: () {
+        //           Navigator.pop(context);
+        //         },
+        //       );
+        //     },
+        //   ),
+        // ),
+        // body: isLoadDataProfile
+        //     ? Center(
+        //         child: CircularProgressIndicator(),
+        //       )
+        //     : Padding(
+        //         padding: const EdgeInsets.symmetric(
+        //           vertical: 10,
+        //           horizontal: 10,
+        //         ),
+        //         child: _buildProfile(),
+        //       )
+    );
   }
 
   Widget _buildProfile() {

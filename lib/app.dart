@@ -4,6 +4,7 @@ import 'package:FlutterGalleryApp/res/res.dart';
 import 'package:FlutterGalleryApp/screens/home.dart';
 import 'package:FlutterGalleryApp/screens/photo_screen.dart';
 import 'package:FlutterGalleryApp/screens/profile_screen.dart';
+import 'package:FlutterGalleryApp/screens/profile_slivers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -64,9 +65,10 @@ class MyApp extends StatelessWidget {
         ;
         if (settings.name == ProfileScreen.routeName) {
           ProfileScreenArguments args = (settings.arguments as ProfileScreenArguments);
-          final route = ProfileScreen(
-            username: args.username,
-          );
+          // final route = ProfileScreen(
+          //   username: args.username,
+          // );
+          final route = ProfileSlivers();
 
           if (Platform.isAndroid) {
             return MaterialPageRoute(
