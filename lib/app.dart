@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
           // final route = ProfileScreen(
           //   username: args.username,
           // );
-          final route = ProfileSlivers();
+          final route = ProfileSlivers(username: args.username,);
 
           if (Platform.isAndroid) {
             return MaterialPageRoute(

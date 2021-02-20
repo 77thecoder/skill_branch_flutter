@@ -64,7 +64,7 @@ class _ProfileScreenState extends State<ProfileScreen>
         ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
-      body: ProfileSlivers(),
+      body: ProfileSlivers(username: args.username),
         // appBar: AppBar(
         //   backgroundColor: AppColors.white,
         //   centerTitle: true,
