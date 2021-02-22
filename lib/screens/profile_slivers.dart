@@ -2,6 +2,8 @@ import 'package:FlutterGalleryApp/dataprovider.dart';
 import 'package:FlutterGalleryApp/models/models.dart';
 import 'package:FlutterGalleryApp/res/colors.dart';
 import 'package:FlutterGalleryApp/res/styles.dart';
+import 'package:FlutterGalleryApp/widgets/profile_biography.dart';
+import 'package:FlutterGalleryApp/widgets/user_main_photo_list.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,8 +54,10 @@ class _ProfileSliversState extends State<ProfileSlivers>
   Widget build(BuildContext context) {
     return Scaffold(
       body: userModel == null
-        ? Center(child: CircularProgressIndicator(),)
-        : _page(),
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : _page(),
     );
   }
 
@@ -81,18 +85,89 @@ class _ProfileSliversState extends State<ProfileSlivers>
           ),
           centerTitle: true,
           backgroundColor: AppColors.white,
-          expandedHeight: 200,
+          expandedHeight: 185,
           flexibleSpace: FlexibleSpaceBar(
             background: _buildProfileHeader(),
           ),
         ),
         SliverList(
           delegate: SliverChildListDelegate(
-            List.generate(
-              20,
-                  (int index) => new ListTile(title: new Text("Item $index")),
+            [
+              if (userModel.bio != null) ...{
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.only(left: 8, top: 10, right: 8, bottom: 10),
+                    alignment: Alignment.topLeft,
+                    child: _buildProfileBiography(),
+                  ),
+                ),
+              },
+            ],
+          ),
+        ),
+        SliverPersistentHeader(
+          pinned: true,
+          delegate: StickyTabBarDelegate(
+            child: _buildTabs(),
+          ),
+        ),
+        SliverFillRemaining(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 8, right: 8),
+            child: TabBarView(
+              controller: _tabController,
+              children: <Widget>[
+                UserMainPhotoList(username: userModel.username),
+                Text('Likes'),
+                Text('Favorites'),
+              ],
             ),
           ),
+        ),
+        SliverList(
+          delegate: SliverChildListDelegate([
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+            Text('sdasda'),
+          ]),
         ),
       ],
     );
@@ -101,82 +176,82 @@ class _ProfileSliversState extends State<ProfileSlivers>
   Widget _buildProfileHeader() {
     return Container(
       padding: const EdgeInsets.only(left: 8, top: 90, right: 8),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Column(
         children: [
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(33),
-                  child: CachedNetworkImage(
-                    imageUrl: userModel.profileImage.medium,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+          Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                userModel.name,
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .headline6,
-              ),
-              SizedBox(height: 18),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Column(
                 children: [
-                  Text(
-                    userModel.followersCount.toString(),
-                    style: AppStyles.counter,
-                    overflow: TextOverflow.ellipsis,
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(33),
+                      child: CachedNetworkImage(
+                        imageUrl: userModel.profileImage.medium,
+                      ),
+                    ),
                   ),
-                  SizedBox(width: 10),
-                  Text('followers'),
-                  SizedBox(width: 26),
-                  Text(
-                    userModel.followingCount.toString(),
-                    style: AppStyles.counter,
-                  ),
-                  SizedBox(width: 10),
-                  Text('following'),
                 ],
               ),
-              if (userModel.location != null) ...{
-                SizedBox(height: 10),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.location_on,
-                      size: 16,
-                      color: AppColors.dodgerBlue,
-                    ),
-                    SizedBox(width: 10),
-                    Text(userModel.location),
-                  ],
-                ),
-              },
-              if (userModel.portfolioUrl != null) ...{
-                SizedBox(height: 10),
-                Row(
-                  children: [
-                    _buildIconUrl(),
-                    SizedBox(width: 10),
-                    if (userModel.portfolioUrl != null)
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    userModel.name,
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  SizedBox(height: 18),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
                       Text(
-                        userModel.portfolioUrl
-                            .replaceAll(RegExp('^http:\/\/|https:\/\/'), ''),
-                        overflow: TextOverflow.clip,
+                        userModel.followersCount.toString(),
+                        style: AppStyles.counter,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                  ],
-                ),
-              },
+                      SizedBox(width: 10),
+                      Text('followers'),
+                      SizedBox(width: 26),
+                      Text(
+                        userModel.followingCount.toString(),
+                        style: AppStyles.counter,
+                      ),
+                      SizedBox(width: 10),
+                      Text('following'),
+                    ],
+                  ),
+                  if (userModel.location != null) ...{
+                    SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          size: 16,
+                          color: AppColors.dodgerBlue,
+                        ),
+                        SizedBox(width: 10),
+                        Text(userModel.location),
+                      ],
+                    ),
+                  },
+                  if (userModel.portfolioUrl != null) ...{
+                    SizedBox(height: 10),
+                    Row(
+                      children: [
+                        _buildIconUrl(),
+                        SizedBox(width: 10),
+                        Text(
+                          userModel.portfolioUrl.replaceFirst(
+                              RegExp('^http:\/\/|https:\/\/'), ''),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    )
+                  },
+                ],
+              ),
             ],
           ),
         ],
@@ -212,5 +287,69 @@ class _ProfileSliversState extends State<ProfileSlivers>
         ),
       ),
     ]);
+  }
+
+  Widget _buildProfileBiography() {
+    return Biography(
+      biography: userModel.bio,
+    );
+  }
+
+  Widget _buildTabs() {
+    return TabBar(
+      controller: _tabController,
+      labelColor: AppColors.dodgerBlue,
+      unselectedLabelColor: Colors.black,
+      indicatorColor: AppColors.dodgerBlue,
+      tabs: [
+        Tab(
+          icon: Icon(
+            Icons.home_outlined,
+          ),
+          // child: Container(),
+          iconMargin: EdgeInsets.only(bottom: 0.1),
+        ),
+        Tab(
+          icon: Icon(
+            Icons.favorite_border_outlined,
+          ),
+          // child: Container(),
+          iconMargin: EdgeInsets.only(bottom: 0.1),
+        ),
+        Tab(
+          icon: Icon(
+            Icons.bookmark_outline_outlined,
+          ),
+          // child: Container(),
+          iconMargin: EdgeInsets.only(bottom: 0.1),
+        ),
+      ],
+    );
+  }
+}
+
+class StickyTabBarDelegate extends SliverPersistentHeaderDelegate {
+  final TabBar child;
+
+  StickyTabBarDelegate({@required this.child});
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      decoration: BoxDecoration(color: AppColors.white),
+      child: this.child,
+    );
+  }
+
+  @override
+  double get maxExtent => this.child.preferredSize.height;
+
+  @override
+  double get minExtent => this.child.preferredSize.height;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
+    return true;
   }
 }
