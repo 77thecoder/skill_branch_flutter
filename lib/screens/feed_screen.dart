@@ -31,7 +31,7 @@ class _FeedState extends State<Feed> {
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
-          _scrollController.position.maxScrollExtent * 0.8) {
+          _scrollController.position.maxScrollExtent) {
         if (!isLoading) {
           print('page scroll: ' + page.toString());
           _getPhotos(page);

@@ -14,7 +14,8 @@ class UserMainPhotoList extends StatefulWidget {
 }
 
 class _UserMainPhotoListState extends State<UserMainPhotoList> {
-  List<UserMainPhotos> photoList;
+  // List<UserMainPhotos> photoList;
+  var photoList = List<UserMainPhotos>();
   ScrollController _scrollController = ScrollController();
   int page = 1;
   int perPage = 15;
@@ -50,7 +51,7 @@ class _UserMainPhotoListState extends State<UserMainPhotoList> {
       });
       var response = await DataProvider.getUserMainPhotos(widget.username, page, perPage);
       setState(() {
-        photoList = response;
+        photoList.addAll(response);
         this.page++;
         isLoading = false;
       });
