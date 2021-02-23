@@ -1,5 +1,6 @@
 import 'package:FlutterGalleryApp/models/photo.dart' as photoModel;
 import 'package:FlutterGalleryApp/screens/profile_screen.dart';
+import 'package:FlutterGalleryApp/utils/date_publication.dart';
 import 'package:FlutterGalleryApp/widgets/claim_bottom_sheet.dart';
 import 'package:FlutterGalleryApp/widgets/photo_detail.dart';
 import 'package:flutter/material.dart';
@@ -167,6 +168,7 @@ class _FullScreenImageState extends State<FullScreenImage>
         child: Column(children: <Widget>[
           // Hero(tag: widget.heroTag, child: Photo(photo: widget.photo)),
           Hero(tag: widget.heroTag, child: PhotoDetail(photo: widget.model)),
+          _buildDatePublication(widget.model.createdAt),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             child: widget.altDescription != null
@@ -185,7 +187,8 @@ class _FullScreenImageState extends State<FullScreenImage>
                     Navigator.pushNamed(
                       context,
                       ProfileScreen.routeName,
-                      arguments: ProfileScreenArguments(username: widget.userName),
+                      arguments:
+                          ProfileScreenArguments(username: widget.userName),
                     )
                   },
                   child: StaggerAnimation(
@@ -360,6 +363,26 @@ class StaggerAnimation extends StatelessWidget {
     return AnimatedBuilder(
       builder: _buildAnimation,
       animation: controller,
+    );
+  }
+}
+
+class _buildDatePublication extends StatelessWidget {
+  final DateTime createdAt;
+
+  _buildDatePublication(this.createdAt);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 8),
+        child: Text(
+          DatePublicaton.datePublicationToString(createdAt),
+          style: AppStyles.h3.copyWith(color: AppColors.manatee),
+        ),
+      ),
     );
   }
 }
