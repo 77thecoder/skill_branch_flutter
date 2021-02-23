@@ -284,7 +284,7 @@ class _FullScreenImageState extends State<FullScreenImage>
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                if (data.length > 0 ) _buildRelatedPhotoList(data),
+                if (data.length > 0) _buildRelatedPhotoList(data),
               ],
             ),
           ),
@@ -435,8 +435,14 @@ class _buildRelatedPhotoList extends StatelessWidget {
       crossAxisCount: 3,
       itemCount: photoList.length,
       itemBuilder: (BuildContext context, int index) {
-        return CachedNetworkImage(imageUrl: photoList[index].urls.small);
-
+        return Hero(
+          tag: photoList[index].id,
+          child: GestureDetector(
+              onTap: () {
+                print('tap photo ' + photoList[index].id);
+              },
+              child: CachedNetworkImage(imageUrl: photoList[index].urls.small)),
+        );
       },
       staggeredTileBuilder: (int index) =>
           StaggeredTile.count(1, index.isEven ? 1 : 1),
