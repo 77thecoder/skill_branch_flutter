@@ -1,10 +1,14 @@
+import 'package:FlutterGalleryApp/dataprovider.dart';
+import 'package:FlutterGalleryApp/models/models.dart';
 import 'package:FlutterGalleryApp/models/photo.dart' as photoModel;
 import 'package:FlutterGalleryApp/screens/profile_screen.dart';
 import 'package:FlutterGalleryApp/utils/date_publication.dart';
 import 'package:FlutterGalleryApp/widgets/claim_bottom_sheet.dart';
 import 'package:FlutterGalleryApp/widgets/photo_detail.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import '../widgets/widgets.dart';
 import '../res/res.dart';
@@ -61,9 +65,14 @@ class _FullScreenImageState extends State<FullScreenImage>
     with TickerProviderStateMixin {
   AnimationController _controller;
 
+  bool isLoading = false;
+  var data = List<ResultRelated>();
+
   @override
   void initState() {
     super.initState();
+
+    _getRelatedPhotos();
 
     _controller = AnimationController(
       duration: Duration(milliseconds: 1500),
@@ -75,6 +84,22 @@ class _FullScreenImageState extends State<FullScreenImage>
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  Future<Null> _getRelatedPhotos() async {
+    if (!isLoading) {
+      setState(() {
+        isLoading = true;
+      });
+      var response = await DataProvider.getRelatedPhotos(widget.model.id);
+
+      setState(() {
+        data.addAll(response.results);
+        isLoading = false;
+      });
+    }
+
+    return null;
   }
 
   Future<void> _showDialog() async {
@@ -230,29 +255,39 @@ class _FullScreenImageState extends State<FullScreenImage>
                       ),
                     )),
                 GestureDetector(
-                    onTap: () {
-                      print('*************** VISIT');
-                    },
-                    child: Container(
-                      width: 100,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        color: AppColors.dodgerBlue,
-                        borderRadius: BorderRadius.circular(5),
+                  onTap: () {
+                    print('*************** VISIT');
+                  },
+                  child: Container(
+                    width: 100,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      color: AppColors.dodgerBlue,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Visit',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline5
+                            .copyWith(color: AppColors.white),
                       ),
-                      child: Center(
-                        child: Text(
-                          'Visit',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline5
-                              .copyWith(color: AppColors.white),
-                        ),
-                      ),
-                    ))
+                    ),
+                  ),
+                ),
               ],
             ),
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8, top: 10, right: 8),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                if (data.length > 0 ) _buildRelatedPhotoList(data),
+              ],
+            ),
+          ),
         ]),
       ),
       resizeToAvoidBottomPadding: false,
@@ -383,6 +418,30 @@ class _buildDatePublication extends StatelessWidget {
           style: AppStyles.h3.copyWith(color: AppColors.manatee),
         ),
       ),
+    );
+  }
+}
+
+class _buildRelatedPhotoList extends StatelessWidget {
+  final List<ResultRelated> photoList;
+
+  _buildRelatedPhotoList(this.photoList);
+
+  @override
+  Widget build(BuildContext context) {
+    return StaggeredGridView.countBuilder(
+      shrinkWrap: true,
+      physics: ClampingScrollPhysics(),
+      crossAxisCount: 3,
+      itemCount: photoList.length,
+      itemBuilder: (BuildContext context, int index) {
+        return CachedNetworkImage(imageUrl: photoList[index].urls.small);
+
+      },
+      staggeredTileBuilder: (int index) =>
+          StaggeredTile.count(1, index.isEven ? 1 : 1),
+      mainAxisSpacing: 4.0,
+      crossAxisSpacing: 4.0,
     );
   }
 }

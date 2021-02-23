@@ -1,10 +1,6 @@
 import 'dart:convert';
 
 import 'package:FlutterGalleryApp/models/models.dart';
-import 'package:FlutterGalleryApp/models/photo_list.dart';
-import 'package:FlutterGalleryApp/models/user_like_photo.dart';
-import 'package:FlutterGalleryApp/models/user_main_photo.dart';
-import 'package:FlutterGalleryApp/widgets/user_main_photo_list.dart';
 import 'package:http/http.dart' as http;
 
 class DataProvider {
@@ -78,6 +74,20 @@ class DataProvider {
       return userFavoritePhotosFromJson(response.body);
     } else {
       throw Exception("Couldn't get favorite photos users: ${response.reasonPhrase}");
+    }
+  }
+
+  /// Список фотографий
+  static Future<RelatedPhotos> getRelatedPhotos(String photo_id) async {
+    print('load related photos');
+    String urlRelatedPhotos = 'https://unsplash.com/napi/photos';
+    String url = urlRelatedPhotos + '/$photo_id/related';
+    var response = await http.get(url);
+    print('loaded related photos');
+    if (response.statusCode == 200) {
+      return relatedPhotosFromJson(response.body);
+    } else {
+      throw Exception("Couldn't get photos: ${response.reasonPhrase}");
     }
   }
 }
