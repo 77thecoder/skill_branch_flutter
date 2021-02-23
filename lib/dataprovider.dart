@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:FlutterGalleryApp/models/models.dart';
 import 'package:FlutterGalleryApp/models/photo_list.dart';
+import 'package:FlutterGalleryApp/models/user_like_photo.dart';
 import 'package:FlutterGalleryApp/models/user_main_photo.dart';
 import 'package:FlutterGalleryApp/widgets/user_main_photo_list.dart';
 import 'package:http/http.dart' as http;
@@ -14,6 +15,7 @@ class DataProvider {
 
   static PhotoList list;
 
+  /// Список фотографий
   static Future<PhotoList> getPhotos(int page, int perPage) async {
     print('load photos page: $page, perPage: $perPage');
     String urlGetPhotos = '$UNSPLASH_URL/photos?page=$page&per_page=$perPage';
@@ -27,6 +29,7 @@ class DataProvider {
     }
   }
 
+  /// Информация об юзере
   static Future<UserModel> user(String username) async {
     print('get profile user $username');
     String url = '$UNSPLASH_URL/users/$username';
@@ -39,6 +42,7 @@ class DataProvider {
     }
   }
 
+  /// Фотографии пользователя
   static Future<List<UserMainPhotos>> getUserMainPhotos(String username, int page, int perPage) async {
     print('get user main photos');
     String url = '$UNSPLASH_URL/users/$username/photos?page=$page&per_page=$perPage';
@@ -48,6 +52,32 @@ class DataProvider {
       return userMainPhotosFromJson(response.body);
     } else {
       throw Exception("Couldn't get main photos users: ${response.reasonPhrase}");
+    }
+  }
+
+  /// Понравившиеся фотографии
+  static Future<List<UserLikePhotos>> getUserLikePhotos(String username, int page, int perPage) async {
+    print('get user like photos');
+    String url = '$UNSPLASH_URL/users/$username/likes?page=$page&per_page=$perPage';
+    var response = await http.get(url, headers: HEADER);
+    print('user main photos loaded');
+    if (response.statusCode == 200) {
+      return userLikePhotosFromJson(response.body);
+    } else {
+      throw Exception("Couldn't get like photos users: ${response.reasonPhrase}");
+    }
+  }
+
+  /// Коллекции фотографий юзера
+  static Future<List<UserFavoritePhotos>> getUserFavoritePhotos(String username, int page, int perPage) async {
+    print('get user favorite photos');
+    String url = '$UNSPLASH_URL/users/$username/collections?page=$page&per_page=$perPage';
+    var response = await http.get(url, headers: HEADER);
+    print('user main photos loaded');
+    if (response.statusCode == 200) {
+      return userFavoritePhotosFromJson(response.body);
+    } else {
+      throw Exception("Couldn't get favorite photos users: ${response.reasonPhrase}");
     }
   }
 }

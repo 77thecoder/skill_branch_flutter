@@ -21,7 +21,7 @@ class UserMainPhotos {
   String color;
   dynamic description;
   String altDescription;
-  Urls urls;
+  UrlsMain urls;
 
   factory UserMainPhotos.fromJson(Map<String, dynamic> json) => UserMainPhotos(
     id: json["id"],
@@ -30,7 +30,7 @@ class UserMainPhotos {
     color: json["color"],
     description: json["description"],
     altDescription: json["alt_description"],
-    urls: Urls.fromJson(json["urls"]),
+    urls: UrlsMain.fromJson(json["urls"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -44,8 +44,8 @@ class UserMainPhotos {
   };
 }
 
-class Urls {
-  Urls({
+class UrlsMain {
+  UrlsMain({
     this.raw,
     this.full,
     this.regular,
@@ -59,7 +59,7 @@ class Urls {
   String small;
   String thumb;
 
-  factory Urls.fromJson(Map<String, dynamic> json) => Urls(
+  factory UrlsMain.fromJson(Map<String, dynamic> json) => UrlsMain(
     raw: json["raw"],
     full: json["full"],
     regular: json["regular"],

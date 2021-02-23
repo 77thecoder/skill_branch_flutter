@@ -2,8 +2,7 @@ import 'package:FlutterGalleryApp/dataprovider.dart';
 import 'package:FlutterGalleryApp/models/models.dart';
 import 'package:FlutterGalleryApp/res/colors.dart';
 import 'package:FlutterGalleryApp/res/styles.dart';
-import 'package:FlutterGalleryApp/widgets/profile_biography.dart';
-import 'package:FlutterGalleryApp/widgets/user_main_photo_list.dart';
+import 'package:FlutterGalleryApp/widgets/widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -125,14 +124,12 @@ class _ProfileSliversState extends State<ProfileSlivers>
                 UserMainPhotoList(
                     key: PageStorageKey('mainPhotoList'),
                     username: userModel.username),
-                // Text('Likes'),
-                UserMainPhotoList(
+                UserLikePhotoList(
                     key: PageStorageKey('likePhotoList'),
                     username: userModel.username),
-                UserMainPhotoList(
+                UserFavoritePhotoList(
                     key: PageStorageKey('favoritePhotoList'),
                     username: userModel.username),
-                // Text('Favorites'),
               ],
             ),
           ),
