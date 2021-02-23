@@ -66,7 +66,7 @@ class _FullScreenImageState extends State<FullScreenImage>
   AnimationController _controller;
 
   bool isLoading = false;
-  var data = List<ResultRelated>();
+  var data = List<photoModel.Photo>();
 
   @override
   void initState() {
@@ -92,9 +92,8 @@ class _FullScreenImageState extends State<FullScreenImage>
         isLoading = true;
       });
       var response = await DataProvider.getRelatedPhotos(widget.model.id);
-
       setState(() {
-        data.addAll(response.results);
+        data.addAll(response.photos);
         isLoading = false;
       });
     }
@@ -423,7 +422,7 @@ class _buildDatePublication extends StatelessWidget {
 }
 
 class _buildRelatedPhotoList extends StatelessWidget {
-  final List<ResultRelated> photoList;
+  final List<photoModel.Photo> photoList;
 
   _buildRelatedPhotoList(this.photoList);
 
@@ -439,7 +438,20 @@ class _buildRelatedPhotoList extends StatelessWidget {
           tag: photoList[index].id,
           child: GestureDetector(
               onTap: () {
-                print('tap photo ' + photoList[index].id);
+                Navigator.pushNamed(
+                    context,
+                    '/fullScreenImage',
+                    arguments: FullScreenImageArguments(
+                        model: photoList[index],
+                        photo: photoList[index].urls.small,
+                        heroTag: photoList[index].id,
+                        userPhoto: photoList[index].user.profileImage,
+                        altDescription: photoList[index].altDescription,
+                        name: photoList[index].user.name,
+                        userName: photoList[index].user.username,
+                        // settings: RouteSettings(arguments: kFlutterDash)
+                    )
+                );
               },
               child: CachedNetworkImage(imageUrl: photoList[index].urls.small)),
         );

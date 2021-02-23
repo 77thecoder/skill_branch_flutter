@@ -78,14 +78,19 @@ class DataProvider {
   }
 
   /// Список фотографий
-  static Future<RelatedPhotos> getRelatedPhotos(String photo_id) async {
+  static Future<PhotoList> getRelatedPhotos(String photo_id) async {
     print('load related photos');
     String urlRelatedPhotos = 'https://unsplash.com/napi/photos';
     String url = urlRelatedPhotos + '/$photo_id/related';
     var response = await http.get(url);
     print('loaded related photos');
     if (response.statusCode == 200) {
-      return relatedPhotosFromJson(response.body);
+      RelatedPhotos related = relatedPhotosFromJson(response.body);
+      String j = json.encode(related.results);
+      var s = PhotoList.fromJson(json.decode(j));
+      var z = 1;
+      // return PhotoList.fromJson(json.decode(related.results));
+      return s;
     } else {
       throw Exception("Couldn't get photos: ${response.reasonPhrase}");
     }
