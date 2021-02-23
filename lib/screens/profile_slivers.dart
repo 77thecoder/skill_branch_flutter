@@ -7,6 +7,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileSlivers extends StatefulWidget {
   final String username;
@@ -84,7 +85,7 @@ class _ProfileSliversState extends State<ProfileSlivers>
           ),
           centerTitle: true,
           backgroundColor: AppColors.white,
-          expandedHeight: 185,
+          expandedHeight: 205,
           flexibleSpace: FlexibleSpaceBar(
             background: _buildProfileHeader(),
           ),
@@ -202,16 +203,19 @@ class _ProfileSliversState extends State<ProfileSlivers>
                     ),
                   },
                   if (userModel.portfolioUrl != null) ...{
-                    SizedBox(height: 10),
                     Row(
                       children: [
                         _buildIconUrl(),
-                        SizedBox(width: 10),
-                        Text(
-                          userModel.portfolioUrl.replaceFirst(
-                              RegExp('^http:\/\/|https:\/\/'), ''),
-                          overflow: TextOverflow.ellipsis,
+                        // SizedBox(width: 10),
+                        TextButton(
+                          onPressed: () => _launchUrl(userModel.portfolioUrl),
+                          child: Text(
+                            userModel.portfolioUrl.replaceFirst(
+                                RegExp('^http:\/\/|https:\/\/'), ''),
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
+
                       ],
                     )
                   },
@@ -290,6 +294,14 @@ class _ProfileSliversState extends State<ProfileSlivers>
         ),
       ],
     );
+  }
+
+  _launchUrl(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
 
