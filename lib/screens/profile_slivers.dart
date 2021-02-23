@@ -94,16 +94,18 @@ class _ProfileSliversState extends State<ProfileSlivers>
           delegate: SliverChildListDelegate(
             [
               if (userModel.bio != null) ...{
-                Row(children: [
-                  Flexible(
-                    child: Container(
-                      padding: const EdgeInsets.only(left: 8, top: 10, right: 8, bottom: 10),
-                      alignment: Alignment.topLeft,
-                      child: _buildProfileBiography(),
+                Row(
+                  children: [
+                    Flexible(
+                      child: Container(
+                        padding: const EdgeInsets.only(
+                            left: 8, top: 10, right: 8, bottom: 10),
+                        alignment: Alignment.topLeft,
+                        child: _buildProfileBiography(),
+                      ),
                     ),
-                  ),
-                ],),
-
+                  ],
+                ),
               },
             ],
           ),
@@ -120,9 +122,17 @@ class _ProfileSliversState extends State<ProfileSlivers>
             child: TabBarView(
               controller: _tabController,
               children: <Widget>[
-                UserMainPhotoList(username: userModel.username),
-                Text('Likes'),
-                Text('Favorites'),
+                UserMainPhotoList(
+                    key: PageStorageKey('mainPhotoList'),
+                    username: userModel.username),
+                // Text('Likes'),
+                UserMainPhotoList(
+                    key: PageStorageKey('likePhotoList'),
+                    username: userModel.username),
+                UserMainPhotoList(
+                    key: PageStorageKey('favoritePhotoList'),
+                    username: userModel.username),
+                // Text('Favorites'),
               ],
             ),
           ),

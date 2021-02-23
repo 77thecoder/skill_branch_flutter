@@ -13,7 +13,7 @@ class UserMainPhotoList extends StatefulWidget {
   _UserMainPhotoListState createState() => _UserMainPhotoListState();
 }
 
-class _UserMainPhotoListState extends State<UserMainPhotoList> {
+class _UserMainPhotoListState extends State<UserMainPhotoList> with AutomaticKeepAliveClientMixin{
   // List<UserMainPhotos> photoList;
   var photoList = List<UserMainPhotos>();
   ScrollController _scrollController = ScrollController();
@@ -61,6 +61,7 @@ class _UserMainPhotoListState extends State<UserMainPhotoList> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return _buildPhotoList(context, photoList);
   }
 
@@ -87,4 +88,7 @@ class _UserMainPhotoListState extends State<UserMainPhotoList> {
       crossAxisSpacing: 4.0,
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
