@@ -39,18 +39,6 @@ class DataProvider {
   }
 
   /// Фотографии пользователя
-  // static Future<List<UserMainPhotos>> getUserMainPhotos(String username, int page, int perPage) async {
-  //   print('get user main photos');
-  //   String url = '$UNSPLASH_URL/users/$username/photos?page=$page&per_page=$perPage';
-  //   var response = await http.get(url, headers: HEADER);
-  //   print('user main photos loaded');
-  //   if (response.statusCode == 200) {
-  //     return userMainPhotosFromJson(response.body);
-  //   } else {
-  //     throw Exception("Couldn't get main photos users: ${response.reasonPhrase}");
-  //   }
-  // }
-
   static Future<PhotoList> getUserMainPhotos(String username, int page, int perPage) async {
     print('get user main photos');
     String url = '$UNSPLASH_URL/users/$username/photos?page=$page&per_page=$perPage';
@@ -68,13 +56,27 @@ class DataProvider {
   }
 
   /// Понравившиеся фотографии
-  static Future<List<UserLikePhotos>> getUserLikePhotos(String username, int page, int perPage) async {
+  // static Future<List<UserLikePhotos>> getUserLikePhotos(String username, int page, int perPage) async {
+  //   print('get user like photos');
+  //   String url = '$UNSPLASH_URL/users/$username/likes?page=$page&per_page=$perPage';
+  //   var response = await http.get(url, headers: HEADER);
+  //   print('user main photos loaded');
+  //   if (response.statusCode == 200) {
+  //     return userLikePhotosFromJson(response.body);
+  //   } else {
+  //     throw Exception("Couldn't get like photos users: ${response.reasonPhrase}");
+  //   }
+  // }
+  static Future<PhotoList> getUserLikePhotos(String username, int page, int perPage) async {
     print('get user like photos');
     String url = '$UNSPLASH_URL/users/$username/likes?page=$page&per_page=$perPage';
     var response = await http.get(url, headers: HEADER);
-    print('user main photos loaded');
+    print('user like photos loaded');
     if (response.statusCode == 200) {
-      return userLikePhotosFromJson(response.body);
+      List<UserLikePhotos> likePhotos = userLikePhotosFromJson(response.body);
+      String j = json.encode(likePhotos);
+      var s = PhotoList.fromJson(json.decode(j));
+      return s;
     } else {
       throw Exception("Couldn't get like photos users: ${response.reasonPhrase}");
     }

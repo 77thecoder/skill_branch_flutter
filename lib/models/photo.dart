@@ -502,10 +502,10 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) => User(
     id: json["id"],
-    updatedAt: DateTime.parse(json["updated_at"]),
-    username: json["username"],
-    name: json["name"],
-    firstName: json["first_name"],
+    updatedAt: json["updated_at"] == null ? DateTime.now() : DateTime.parse(json["updated_at"]),
+    username: json["username"] == null ? '' : json["username"],
+    name: json["name"] == null ? '' : json["name"],
+    firstName: json["first_name"] == null ? '' : json["first_name"],
     lastName: json["last_name"] == null ? null : json["last_name"],
     twitterUsername: json["twitter_username"] == null ? null : json["twitter_username"],
     portfolioUrl: json["portfolio_url"] == null ? null : json["portfolio_url"],
