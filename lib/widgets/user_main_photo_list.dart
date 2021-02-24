@@ -1,4 +1,5 @@
 import 'package:FlutterGalleryApp/dataprovider.dart';
+import 'package:FlutterGalleryApp/models/models.dart';
 import 'package:FlutterGalleryApp/models/user_main_photo.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class UserMainPhotoList extends StatefulWidget {
 
 class _UserMainPhotoListState extends State<UserMainPhotoList> with AutomaticKeepAliveClientMixin{
   // List<UserMainPhotos> photoList;
-  var photoList = List<UserMainPhotos>();
+  var photoList = List<Photo>();
   ScrollController _scrollController = ScrollController();
   int page = 1;
   int perPage = 15;
@@ -51,7 +52,7 @@ class _UserMainPhotoListState extends State<UserMainPhotoList> with AutomaticKee
       });
       var response = await DataProvider.getUserMainPhotos(widget.username, page, perPage);
       setState(() {
-        photoList.addAll(response);
+        photoList.addAll(response.photos);
         this.page++;
         isLoading = false;
       });
@@ -65,7 +66,7 @@ class _UserMainPhotoListState extends State<UserMainPhotoList> with AutomaticKee
     return _buildPhotoList(context, photoList);
   }
 
-  Widget _buildPhotoList(BuildContext context, List<UserMainPhotos> photoList) {
+  Widget _buildPhotoList(BuildContext context, List<Photo> photoList) {
     return StaggeredGridView.countBuilder(
       controller: _scrollController,
       crossAxisCount: 3,
