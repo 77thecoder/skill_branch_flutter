@@ -49,24 +49,12 @@ class DataProvider {
       String j = json.encode(mainPhotos);
       var s = PhotoList.fromJson(json.decode(j));
       return s;
-      // return userMainPhotosFromJson(response.body);
     } else {
       throw Exception("Couldn't get main photos users: ${response.reasonPhrase}");
     }
   }
 
   /// Понравившиеся фотографии
-  // static Future<List<UserLikePhotos>> getUserLikePhotos(String username, int page, int perPage) async {
-  //   print('get user like photos');
-  //   String url = '$UNSPLASH_URL/users/$username/likes?page=$page&per_page=$perPage';
-  //   var response = await http.get(url, headers: HEADER);
-  //   print('user main photos loaded');
-  //   if (response.statusCode == 200) {
-  //     return userLikePhotosFromJson(response.body);
-  //   } else {
-  //     throw Exception("Couldn't get like photos users: ${response.reasonPhrase}");
-  //   }
-  // }
   static Future<PhotoList> getUserLikePhotos(String username, int page, int perPage) async {
     print('get user like photos');
     String url = '$UNSPLASH_URL/users/$username/likes?page=$page&per_page=$perPage';
@@ -107,6 +95,19 @@ class DataProvider {
       String j = json.encode(related.results);
       var s = PhotoList.fromJson(json.decode(j));
       return s;
+    } else {
+      throw Exception("Couldn't get photos: ${response.reasonPhrase}");
+    }
+  }
+
+  /// Фото по ID
+  static Future<Photo> getPhoto(String id) async {
+    print('load photo by id');
+    String url = '$UNSPLASH_URL/photos/$id';
+    var response = await http.get(url, headers: HEADER);
+    print('loaded related photos');
+    if (response.statusCode == 200) {
+      return Photo.fromJson(json.decode(response.body));
     } else {
       throw Exception("Couldn't get photos: ${response.reasonPhrase}");
     }

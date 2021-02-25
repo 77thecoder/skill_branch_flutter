@@ -1,6 +1,7 @@
 import 'package:FlutterGalleryApp/dataprovider.dart';
 import 'package:FlutterGalleryApp/models/photo.dart';
 import 'package:FlutterGalleryApp/models/user_like_photo.dart';
+import 'package:FlutterGalleryApp/screens/screens.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -82,7 +83,7 @@ class _UserLikePhotoListState extends State<UserLikePhotoList>
                   ),
                 );
               }
-              return CachedNetworkImage(imageUrl: photoList[index].urls.small);
+              return _buildItemPhoto(photoList[index]);
             },
             staggeredTileBuilder: (int index) =>
                 StaggeredTile.count(1, index.isEven ? 1 : 1),
@@ -96,4 +97,33 @@ class _UserLikePhotoListState extends State<UserLikePhotoList>
 
   @override
   bool get wantKeepAlive => true;
+
+  Widget _buildItemPhoto(Photo photo) {
+    return GestureDetector(
+      onTap: () {
+        _getPhoto(photo.id);
+      },
+      child: Hero(
+        tag: photo.id,
+        child: CachedNetworkImage(imageUrl: photo.urls.small),
+      ),
+    );
+  }
+
+  Future<void> _getPhoto(String id) async {
+    Photo photo = await DataProvider.getPhoto(id);
+    Navigator.pushNamed(
+        context,
+        '/fullScreenImage',
+        arguments: FullScreenImageArguments(
+          model: photo,
+          photo: photo.urls.small,
+          heroTag: photo.id + photo.user.username,
+          userPhoto: photo.user.profileImage,
+          altDescription: photo.altDescription,
+          name: photo.user.name,
+          userName: photo.user.username,
+        )
+    );
+  }
 }

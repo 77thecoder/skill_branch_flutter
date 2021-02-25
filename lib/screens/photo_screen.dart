@@ -449,7 +449,6 @@ class _buildRelatedPhotoList extends StatelessWidget {
                         altDescription: photoList[index].altDescription,
                         name: photoList[index].user.name,
                         userName: photoList[index].user.username,
-                        // settings: RouteSettings(arguments: kFlutterDash)
                     )
                 );
               },
