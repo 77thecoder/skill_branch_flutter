@@ -1,5 +1,4 @@
 import 'package:FlutterGalleryApp/dataprovider.dart';
-import 'package:FlutterGalleryApp/models/models.dart';
 import 'package:FlutterGalleryApp/models/photo.dart' as photoModel;
 import 'package:FlutterGalleryApp/screens/profile_screen.dart';
 import 'package:FlutterGalleryApp/utils/date_publication.dart';
@@ -10,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:gallery_saver/gallery_saver.dart';
+import 'package:image_downloader/image_downloader.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../widgets/widgets.dart';
 import '../res/res.dart';
@@ -114,7 +114,7 @@ class _FullScreenImageState extends State<FullScreenImage>
             FlatButton(
               child: Text('Download'),
               onPressed: () {
-                // GallerySaver.saveImage('path');
+                _savePhoto(widget.model.id);
                 Navigator.of(context).pop();
               },
             ),
@@ -128,6 +128,61 @@ class _FullScreenImageState extends State<FullScreenImage>
         );
       },
     );
+  }
+
+  Future<void> _showDialogSuccess() async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Success'),
+          content: Text('Photo was successfully saved'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _showDialogError() async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Error'),
+          content: Text('Error occurred while saving photo'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<Null> _savePhoto(String id) async {
+    String url = await DataProvider.getUrlDownload(id);
+
+    try {
+      await ImageDownloader.downloadImage(url);
+    } catch (e) {
+      _showDialogError();
+      return null;
+    }
+
+    _showDialogSuccess();
   }
 
   Future<void> _visit(String url) async {

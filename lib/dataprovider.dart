@@ -112,4 +112,18 @@ class DataProvider {
       throw Exception("Couldn't get photos: ${response.reasonPhrase}");
     }
   }
+
+  /// Получить url для скачивания фото
+  static Future<String> getUrlDownload(String id) async {
+    print('get url download photo');
+    String url = '$UNSPLASH_URL/photos/$id/download';
+    var response = await http.get(url, headers: HEADER);
+    print('loaded related photos');
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = json.decode(response.body);
+      return data['url'];
+    } else {
+      throw Exception("Couldn't get url download: ${response.reasonPhrase}");
+    }
+  }
 }
