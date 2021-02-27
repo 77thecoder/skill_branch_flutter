@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:gallery_saver/gallery_saver.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../widgets/widgets.dart';
 import '../res/res.dart';
 
@@ -127,6 +128,18 @@ class _FullScreenImageState extends State<FullScreenImage>
         );
       },
     );
+  }
+
+  Future<void> _visit(String url) async {
+    if (await canLaunch(url)) {
+      await launch(
+        url,
+        forceSafariVC: false,
+        forceWebView: false,
+      );
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
@@ -256,6 +269,7 @@ class _FullScreenImageState extends State<FullScreenImage>
                 GestureDetector(
                   onTap: () {
                     print('*************** VISIT');
+                    _visit(widget.model.links.html);
                   },
                   child: Container(
                     width: 100,
