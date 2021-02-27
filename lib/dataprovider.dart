@@ -126,4 +126,21 @@ class DataProvider {
       throw Exception("Couldn't get url download: ${response.reasonPhrase}");
     }
   }
+
+  /// Поиск фотографий
+  static Future<PhotoList> searchPhotos(String query, int page, int perPage) async {
+    print('load search photos');
+    String urlSearchPhotos = 'https://api.unsplash.com/search/photos';
+    String url = urlSearchPhotos + '?query=$query&page=$page&per_page=$perPage';
+    var response = await http.get(url, headers: HEADER);
+    print('loaded search photos');
+    if (response.statusCode == 200) {
+      // RelatedPhotos related = relatedPhotosFromJson(response.body);
+      Map<String, dynamic> data = json.decode(response.body);
+      String photos = json.encode(data['results']);
+      return PhotoList.fromJson(data['results']);
+    } else {
+      throw Exception("Couldn't get photos: ${response.reasonPhrase}");
+    }
+  }
 }

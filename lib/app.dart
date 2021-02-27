@@ -5,6 +5,7 @@ import 'package:FlutterGalleryApp/screens/home.dart';
 import 'package:FlutterGalleryApp/screens/photo_screen.dart';
 import 'package:FlutterGalleryApp/screens/profile_screen.dart';
 import 'package:FlutterGalleryApp/screens/profile_slivers.dart';
+import 'package:FlutterGalleryApp/screens/search_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -59,13 +60,8 @@ class MyApp extends StatelessWidget {
             return CupertinoPageRoute(
                 builder: (context) => route, settings: args.settings);
           }
-        }
-        ;
-        if (settings.name == ProfileScreen.routeName) {
+        } else if (settings.name == ProfileScreen.routeName) {
           ProfileScreenArguments args = (settings.arguments as ProfileScreenArguments);
-          // final route = ProfileScreen(
-          //   username: args.username,
-          // );
           final route = ProfileSlivers(username: args.username,);
 
           if (Platform.isAndroid) {
@@ -75,7 +71,18 @@ class MyApp extends StatelessWidget {
             return CupertinoPageRoute(
                 builder: (context) => route);
           }
+        } else if (settings.name == SearchScreen.routeName) {
+          final route = SearchScreen();
+
+          if (Platform.isAndroid) {
+            return MaterialPageRoute(
+                builder: (context) => route);
+          } else if (Platform.isIOS) {
+            return CupertinoPageRoute(
+                builder: (context) => route);
+          }
         }
+
       },
     );
   }

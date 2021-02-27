@@ -109,11 +109,10 @@ class _HomeState extends State<Home> {
         mainAxisAlignment: MainAxisAlignment.center,
         onItemSelected: (int index) async {
           if (index == 1) {
-            var value = await Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-              return Container();
-            }));
-
-            print(value);
+            await Navigator.pushNamed(
+                context,
+                '/search'
+            );
           } else {
             setState(() {
               currentTab = index;
