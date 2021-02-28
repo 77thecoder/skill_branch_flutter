@@ -21,6 +21,7 @@ class _SearchScreenState extends State<SearchScreen> {
   int perPage = 15;
   ScrollController _scrollController = ScrollController();
   bool isLoading = false;
+  bool loaded = false;
   String query;
 
   @override
@@ -47,12 +48,14 @@ class _SearchScreenState extends State<SearchScreen> {
     if (!isLoading) {
       setState(() {
         isLoading = true;
+        loaded = false;
       });
       var response = await DataProvider.searchPhotos(query, page, perPage);
       setState(() {
         photoList.addAll(response.photos);
         this.page++;
         isLoading = false;
+        loaded = true;
       });
     }
     return null;
@@ -73,6 +76,15 @@ class _SearchScreenState extends State<SearchScreen> {
           if (photoList.length > 0) ...{
             Expanded(
               child: _buildPhotoList(context, photoList),
+            ),
+          },
+          if (photoList.length == 0 &&
+              loaded == true &&
+              isLoading == false) ...{
+            Container(
+              alignment: Alignment.center,
+              height: MediaQuery.of(context).size.height - 100,
+              child: Text('Nothing found'),
             ),
           },
           if (isLoading) ...{
