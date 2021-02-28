@@ -1,12 +1,13 @@
+import 'package:FlutterGalleryApp/dataprovider.dart';
+import 'package:FlutterGalleryApp/models/photo.dart';
 import 'package:FlutterGalleryApp/res/app_icons.dart';
 import 'package:FlutterGalleryApp/res/colors.dart';
 import 'package:flutter/material.dart';
 
 class LikeButton extends StatefulWidget {
-  final int likeCount;
-  final bool isLiked;
+  final Photo photo;
 
-  LikeButton({this.likeCount, this.isLiked, Key key}) : super(key: key);
+  LikeButton({this.photo, Key key}) : super(key: key);
 
   @override
   _LikeButtonState createState() => _LikeButtonState();
@@ -19,8 +20,8 @@ class _LikeButtonState extends State<LikeButton> {
   @override
   void initState() {
     super.initState();
-    isLiked = widget.isLiked;
-    likeCount = widget.likeCount;
+    isLiked = widget.photo.likedByUser;
+    likeCount = widget.photo.likes;
   }
 
   @override
@@ -29,13 +30,17 @@ class _LikeButtonState extends State<LikeButton> {
       behavior: HitTestBehavior.opaque,
       onTap: () {
         setState(() {
-          isLiked = !isLiked;
-          print('*************** ${likeCount}');
-
-          if (isLiked) {
+          print('id ' + widget.photo.id);
+          if (!isLiked) {
+            print('like');
+            _like(widget.photo.id);
             likeCount++;
-          } else {
+            isLiked = true;
+          } else if (isLiked) {
+            print('unlike');
+            _unlike(widget.photo.id);
             likeCount--;
+            isLiked = false;
           }
         });
       },
@@ -64,5 +69,13 @@ class _LikeButtonState extends State<LikeButton> {
         ),
       ),
     );
+  }
+
+  Future<bool> _like(String id) async {
+    return await DataProvider.like(id);
+  }
+
+  Future<bool> _unlike(String id) async {
+    return await DataProvider.unlike(id);
   }
 }

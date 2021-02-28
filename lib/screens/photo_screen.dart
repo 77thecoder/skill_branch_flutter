@@ -297,7 +297,7 @@ class _FullScreenImageState extends State<FullScreenImage>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                LikeButton(likeCount: 10, isLiked: true),
+                LikeButton(photo: widget.model),
                 GestureDetector(
                     onTap: () {
                       print('*************** SAVE');

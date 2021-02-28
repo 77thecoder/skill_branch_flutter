@@ -50,7 +50,7 @@ class DataProvider {
       );
       DataProvider.token = jsonDecode(response.body)['access_token'];
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString(token, DataProvider.token);
+      prefs.setString('token', DataProvider.token);
       return jsonDecode(response.body)['access_token'];
     } catch (e) {
       print(e);
@@ -188,6 +188,36 @@ class DataProvider {
       return PhotoList.fromJson(data['results']);
     } else {
       throw Exception("Couldn't get photos: ${response.reasonPhrase}");
+    }
+  }
+
+  /// Like фото
+  static Future<bool> like(String id) async {
+    print('begin like photo id: ' + id);
+    String urlLikePhoto = 'https://api.unsplash.com/photos';
+    String url = urlLikePhoto + '/$id/like';
+    String token = DataProvider.token;
+    var  response = await http.post(url, headers: {'Authorization': 'Bearer $token'});
+    print('end like photo');
+    if (response.statusCode == 201) {
+      return true;
+    } else {
+      throw Exception("Couldn't like photo: ${response.reasonPhrase}");
+    }
+  }
+
+  /// Unlike фото
+  static Future<bool> unlike(String id) async {
+    print('begin unlike photo id: ' + id);
+    String urlUnlikePhoto = 'https://api.unsplash.com/photos';
+    String url = urlUnlikePhoto + '/$id/like';
+    String token = DataProvider.token;
+    var  response = await http.delete(url, headers: {'Authorization': 'Bearer $token'});
+    print('end unlike photo');
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      throw Exception("Couldn't like photo: ${response.reasonPhrase}");
     }
   }
 }

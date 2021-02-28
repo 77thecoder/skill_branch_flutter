@@ -67,11 +67,6 @@ class _FeedState extends State<Feed> {
     );
   }
 
-  Future<Null> _getToken() async {
-    DataProvider.token = await DataProvider.getAuthToken();
-    var a = 1;
-  }
-
   Future<Null> _getPhotos(int page) async {
     if (!isLoading) {
       setState(() {
@@ -110,7 +105,6 @@ class _FeedState extends State<Feed> {
               }
               return Center(
                 child: Column(
-                  // crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Container(
                       child: _buildItemPhoto(photo: photos[index])
@@ -163,19 +157,9 @@ class _buildItemPhoto extends StatelessWidget {
           child: Hero(
             tag: photo.id,
             child: Photo(photo: photo.urls.small),
-            // child: PhotoDetail(photo: photo),
           ),
         ),
         _buildPhotoMeta(photo: photo),
-        // Padding(
-        //   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        //   child: Text(
-        //     photo.altDescription,
-        //     maxLines: 3,
-        //     overflow: TextOverflow.ellipsis,
-        //     style: Theme.of(context).textTheme.headline6.copyWith(color: AppColors.manatee),
-        //   ),
-        // ),
       ],
     );
   }
@@ -206,7 +190,7 @@ class _buildPhotoMeta extends StatelessWidget {
               )
             ],
           ),
-          LikeButton(likeCount: photo.likes, isLiked: photo.likedByUser)
+          LikeButton(photo: photo)
         ],
       ),
     );
