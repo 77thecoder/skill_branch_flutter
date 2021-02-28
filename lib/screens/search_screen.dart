@@ -23,6 +23,8 @@ class _SearchScreenState extends State<SearchScreen> {
   bool isLoading = false;
   bool loaded = false;
   String query;
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      new GlobalKey<RefreshIndicatorState>();
 
   @override
   void initState() {
@@ -64,7 +66,16 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _page(),
+      body: RefreshIndicator(
+        key: _refreshIndicatorKey,
+        onRefresh: () async {
+          photoList = List<Photo>();
+          page = 1;
+          await _searchPhotos(query, page, perPage);
+          return null;
+        },
+        child: _page(),
+      ),
     );
   }
 
