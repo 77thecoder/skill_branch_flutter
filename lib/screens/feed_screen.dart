@@ -6,6 +6,7 @@ import 'package:FlutterGalleryApp/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:FlutterGalleryApp/res/colors.dart';
 import 'package:FlutterGalleryApp/models/photo.dart' as photoModel;
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 const String kFlutterDash = 'https://flutter.dev/assets/404/dash_nest-c64796b59b65042a2b40fae5764c13b7477a592db79eaf04c86298dcb75b78ea.png';
@@ -24,10 +25,11 @@ class _FeedState extends State<Feed> {
   bool isLoading = false;
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
   ScrollController _scrollController = ScrollController();
+  SharedPreferences pref;
 
   @override
   void initState() {
-    _getPhotos(page);
+    _init();
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
@@ -48,12 +50,26 @@ class _FeedState extends State<Feed> {
     super.dispose();
   }
 
+  Future<Null> _init() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('token') == null) {
+      await DataProvider.getAuthToken();
+    } else {
+      DataProvider.token = prefs.getString('token');
+    }
+    _getPhotos(page);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: _buildPhotoList(context, data),
-      // resizeToAvoidBottomPadding: false,
     );
+  }
+
+  Future<Null> _getToken() async {
+    DataProvider.token = await DataProvider.getAuthToken();
+    var a = 1;
   }
 
   Future<Null> _getPhotos(int page) async {
